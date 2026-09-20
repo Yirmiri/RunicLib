@@ -99,7 +99,8 @@ public class FabricRLRegistryHelper implements RLRegistryHelper {
 
     @Override
     public Supplier<MobEffect> registerEffect(String modid, String id, MobEffect supplier) {
-        return () -> Registry.register(BuiltInRegistries.MOB_EFFECT, RunicLib.customid(modid, id), supplier);
+        MobEffect effect = Registry.register(BuiltInRegistries.MOB_EFFECT, RunicLib.customid(modid, id), supplier);
+        return () -> effect;
     }
 
     @Override
@@ -116,7 +117,8 @@ public class FabricRLRegistryHelper implements RLRegistryHelper {
 
     @Override
     public Supplier<SimpleParticleType> registerParticle(String modid, String id) {
-        return () -> Registry.register(BuiltInRegistries.PARTICLE_TYPE, RunicLib.customid(modid, id), FabricParticleTypes.simple());
+        SimpleParticleType simple = Registry.register(BuiltInRegistries.PARTICLE_TYPE, RunicLib.customid(modid, id), FabricParticleTypes.simple());
+        return () -> simple;
     }
 
     @Override
@@ -133,12 +135,15 @@ public class FabricRLRegistryHelper implements RLRegistryHelper {
 
     @Override
     public <T extends Recipe<?>> Supplier<RecipeType<T>> registerRecipeType(String modid, String id) {
-        return () -> Registry.register(BuiltInRegistries.RECIPE_TYPE, RunicLib.customid(modid, id), new RecipeType<T>() {});
+        RecipeType<T> registered = Registry.register(BuiltInRegistries.RECIPE_TYPE, RunicLib.customid(modid, id), new RecipeType<T>() {});
+        return () -> registered;
     }
 
     @Override
     public <T extends Recipe<?>> Supplier<RecipeSerializer<T>> registerRecipeSerializer(String modid, String id, RecipeSerializer<T> serializer) {
-        return () -> Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, RunicLib.customid(modid, id), serializer);
+        RecipeSerializer<T> registered = Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, RunicLib.customid(modid, id), serializer);
+        return () -> registered;
     }
 
+    // yirmiri how many times are you going to make Registry.register() suppliers, thank goodness you have a fabric-first dev tho amirite :innocent: - artyrian
 }

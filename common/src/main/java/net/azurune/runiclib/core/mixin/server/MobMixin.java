@@ -10,6 +10,8 @@ import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(Mob.class)
 public abstract class MobMixin extends EntityMixin {
+    Mob mob = (Mob) (Object) this;
+
     @Shadow @Final private NonNullList<ItemStack> armorItems;
     @Shadow @Final private NonNullList<ItemStack> handItems;
 
@@ -17,17 +19,16 @@ public abstract class MobMixin extends EntityMixin {
     protected void runicLib$runIATIInject() {
         if (!this.level().isClientSide) {
             IAlwaysTickingItem.Context ctx = IAlwaysTickingItem.Context.LIVING_ENTITY;
-            Mob me = (Mob)(Object)this;
 
             for (ItemStack stack : this.armorItems) {
                 if (!stack.isEmpty() && stack.getItem() instanceof IAlwaysTickingItem ticking && (ticking.canTickItem(ctx))) {
-                    ticking.runicItemTick(ctx, stack, this.level(), me, null);
+                    ticking.runicItemTick(ctx, stack, this.level(), mob, null);
                 }
             }
 
             for (ItemStack stack : this.handItems) {
                 if (!stack.isEmpty() && stack.getItem() instanceof IAlwaysTickingItem ticking && (ticking.canTickItem(ctx))) {
-                    ticking.runicItemTick(ctx, stack, this.level(), me, null);
+                    ticking.runicItemTick(ctx, stack, this.level(), mob, null);
                 }
             }
         }

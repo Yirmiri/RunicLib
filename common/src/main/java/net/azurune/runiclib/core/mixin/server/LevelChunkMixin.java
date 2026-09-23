@@ -23,7 +23,7 @@ public abstract class LevelChunkMixin
     @Shadow @Final Level level;
 
     @Inject(method = "updateBlockEntityTicker", at = @At("HEAD"))
-    private <T extends BlockEntity> void rl$craft(T blockEntity, CallbackInfo ci) {
+    private <T extends BlockEntity> void runiclib$craft(T blockEntity, CallbackInfo ci) {
         if (blockEntity instanceof Container container && this.level instanceof IRunicServerLvl runicL) {
             RunicLib.LOGGER.debug("Added container {} to Runic's container ticker", container.toString());
             runicL.rl$scheduleForTicking(blockEntity.getBlockPos());

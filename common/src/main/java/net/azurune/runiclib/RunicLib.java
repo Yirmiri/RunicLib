@@ -1,6 +1,5 @@
 package net.azurune.runiclib;
 
-import net.azurune.runiclib.core.register.RLAttributes;
 import net.azurune.runiclib.core.register.RLMobEffects;
 import net.azurune.runiclib.core.runiconfig.Runiconfig;
 import net.minecraft.resources.ResourceLocation;
@@ -14,7 +13,6 @@ public class RunicLib {
 
     public static void init() {
         RLMobEffects.load();
-        RLAttributes.load();
 
         Runiconfig.registerConfig(MOD_ID, RunicLibConfig.class, RunicLibConfig::new);
         CONFIG = Runiconfig.getConfig(MOD_ID);

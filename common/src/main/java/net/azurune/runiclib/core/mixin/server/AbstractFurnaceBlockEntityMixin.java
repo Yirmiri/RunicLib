@@ -1,6 +1,6 @@
 package net.azurune.runiclib.core.mixin.server;
 
-import net.azurune.runiclib.common.util.RLFurnaceFuelRegistry;
+import net.azurune.runiclib.core.library.misc.RLFurnaceFuelRegistry;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import org.spongepowered.asm.mixin.Mixin;

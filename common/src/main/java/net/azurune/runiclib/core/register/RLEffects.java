@@ -3,7 +3,7 @@ package net.azurune.runiclib.core.register;
 import net.azurune.runiclib.RunicLib;
 import net.azurune.runiclib.common.effect.*;
 import net.azurune.runiclib.common.publicized.PublicMobEffect;
-import net.azurune.runiclib.core.platform.Services;
+import net.azurune.runiclib.core.platform.RLServices;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -12,7 +12,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 
 import java.util.function.Supplier;
 
-public class RLMobEffects {
+public class RLEffects {
     //BENEFICIAL
     public static final Supplier<MobEffect> WATER_WALKING = register("water_walking", () -> new PublicMobEffect(MobEffectCategory.BENEFICIAL, 0x5c89dc));
     public static final Supplier<MobEffect> LAVA_WALKING = register("lava_walking", () -> new PublicMobEffect(MobEffectCategory.BENEFICIAL, 0xc34c02));
@@ -46,7 +46,7 @@ public class RLMobEffects {
     public static final Supplier<MobEffect> CAFFEINE_CRASH = register("caffeine_crash", () -> new PublicMobEffect(MobEffectCategory.HARMFUL, 0x410909).addAttributeModifier(Attributes.ATTACK_DAMAGE, "0a921b76-10d3-4038-8a2d-7e53ad32ef3d", -1.0, AttributeModifier.Operation.ADDITION).addAttributeModifier(Attributes.MOVEMENT_SPEED, "3ecec3d4-8bad-4f10-b870-83228e444672", -0.02, AttributeModifier.Operation.ADDITION).addAttributeModifier(Attributes.ARMOR, "bb33d1c3-68b1-4413-958e-3a6b32e991be", -2.0, AttributeModifier.Operation.ADDITION).addAttributeModifier(Attributes.MAX_HEALTH, "659863ac-6cc0-4f4e-92c4-96fc04df37bf", -2.0, AttributeModifier.Operation.ADDITION).addAttributeModifier(Attributes.JUMP_STRENGTH, "c428b22a-8db3-4778-9dba-27fae9f9b6a4", -1.0, AttributeModifier.Operation.ADDITION).addAttributeModifier(Attributes.LUCK, "5213feef-1d5f-407a-a708-629b79d12bf3", -1.0, AttributeModifier.Operation.ADDITION));
 
     private static Supplier<MobEffect> register(String id, Supplier<MobEffect> supplier) {
-        return Services.REGISTRY.register(BuiltInRegistries.MOB_EFFECT, RunicLib.MOD_ID, id, supplier);
+        return RLServices.REGISTRY.register(BuiltInRegistries.MOB_EFFECT, RunicLib.MOD_ID, id, supplier);
     }
 
     public static void load() {

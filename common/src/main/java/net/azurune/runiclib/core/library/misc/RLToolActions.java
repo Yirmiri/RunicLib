@@ -2,7 +2,7 @@
 //Created and used with permission of Artyrian
 //
 
-package net.azurune.runiclib.common.util;
+package net.azurune.runiclib.core.library.misc;
 
 import net.azurune.runiclib.RunicLib;
 import net.minecraft.world.level.block.Block;

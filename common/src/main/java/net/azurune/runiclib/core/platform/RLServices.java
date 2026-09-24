@@ -7,7 +7,7 @@ import net.azurune.runiclib.core.platform.services.RLRegistryHelper;
 
 import java.util.ServiceLoader;
 
-public class Services {
+public class RLServices {
     public static final RLPlatformHelper PLATFORM = load(RLPlatformHelper.class);
     public static final RLRegistryHelper REGISTRY = load(RLRegistryHelper.class);
 

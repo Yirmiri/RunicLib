@@ -1,4 +1,4 @@
-package net.azurune.runiclib.common.util;
+package net.azurune.runiclib.core.library.misc;
 
 import net.minecraft.world.item.Item;
 

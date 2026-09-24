@@ -3,7 +3,6 @@ package net.azurune.runiclib;
 import net.azurune.runiclib.common.command.*;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -19,7 +18,7 @@ public class ForgeRunicLib {
 
     @SubscribeEvent
     public void registerCommands(RegisterCommandsEvent event) {
-        if (RunicLib.CONFIG.getRLCommandsEnabled()) {
+        if (RunicLib.CONFIG.getRunicLibCommands()) {
             HungerCommand.register(event.getDispatcher());
             SaturationCommand.register(event.getDispatcher());
             SetNameCommand.register(event.getDispatcher());

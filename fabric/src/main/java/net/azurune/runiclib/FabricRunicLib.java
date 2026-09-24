@@ -11,7 +11,7 @@ public class FabricRunicLib implements ModInitializer {
         RunicLib.init();
 
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
-            if (RunicLib.CONFIG.getRLCommandsEnabled()) {
+            if (RunicLib.CONFIG.getRunicLibCommands()) {
                 HungerCommand.register(dispatcher);
                 SaturationCommand.register(dispatcher);
                 SetNameCommand.register(dispatcher);

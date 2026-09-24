@@ -4,7 +4,7 @@
 
 package net.azurune.runiclib.core.mixin.server;
 
-import net.azurune.runiclib.common.util.RLToolActions;
+import net.azurune.runiclib.core.library.misc.RLToolActions;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;

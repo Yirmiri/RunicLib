@@ -1,13 +1,17 @@
 package net.azurune.runiclib;
 
-public class RunicLibConfig {
-    private boolean rlCommandsEnabled = true;
+import java.util.Map;
 
-    public boolean getRLCommandsEnabled() {
-        return rlCommandsEnabled;
+public class RunicLibConfig {
+    private boolean runicLibCommands = true;
+
+    public boolean getRunicLibCommands() {
+        return runicLibCommands;
     }
 
-    public void setRlCommandsEnabled(boolean value) {
-        rlCommandsEnabled = value;
+    public Map<String, String> getComments() {
+        return Map.of(
+                "rlCommands", "Toggles RunicLib's custom commands (default: true)"
+        );
     }
 }

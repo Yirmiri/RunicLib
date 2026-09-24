@@ -1,6 +1,6 @@
 package net.azurune.runiclib.core.mixin.server;
 
-import net.azurune.runiclib.core.register.RLMobEffects;
+import net.azurune.runiclib.core.register.RLEffects;
 import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -40,14 +40,14 @@ public class PlayerMixin {
 
     @Inject(at = @At("HEAD"), method = "isHurt", cancellable = true)
     public void runiclib$isHurt(CallbackInfoReturnable<Boolean> cir) {
-        if (player.hasEffect(RLMobEffects.BLOOD_CLOT.get())) {
+        if (player.hasEffect(RLEffects.BLOOD_CLOT.get())) {
             cir.setReturnValue(false);
         }
     }
 
     @Inject(at = @At("HEAD"), method = "isReducedDebugInfo", cancellable = true)
     public void runiclib$hasReducedDebugInfo(CallbackInfoReturnable<Boolean> cir) {
-        if (player.hasEffect(RLMobEffects.CONFUSION.get())) {
+        if (player.hasEffect(RLEffects.CONFUSION.get())) {
             cir.setReturnValue(true);
         }
     }

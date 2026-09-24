@@ -1,7 +1,7 @@
 package net.azurune.runiclib.core.mixin.server;
 
 import net.azurune.runiclib.core.init.RLDamageTypes;
-import net.azurune.runiclib.core.register.RLMobEffects;
+import net.azurune.runiclib.core.register.RLEffects;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.player.Player;
@@ -20,9 +20,9 @@ public class BlockItemMixin {
     public void runiclib$placeBlock(BlockPlaceContext ctx, BlockState state, CallbackInfoReturnable<Boolean> cir) {
         Player player = ctx.getPlayer();
         if (player != null) {
-            if (player.hasEffect(RLMobEffects.CREATIVE_SHOCK.get()) && !player.getAbilities().instabuild) {
+            if (player.hasEffect(RLEffects.CREATIVE_SHOCK.get()) && !player.getAbilities().instabuild) {
                 DamageSource damagesource = new DamageSource(player.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(RLDamageTypes.CREATIVE_SHOCK));
-                player.hurt(damagesource, 1.0F + player.getEffect(RLMobEffects.CREATIVE_SHOCK.get()).getAmplifier() + 1.0F);
+                player.hurt(damagesource, 1.0F + player.getEffect(RLEffects.CREATIVE_SHOCK.get()).getAmplifier() + 1.0F);
             }
         }
     }

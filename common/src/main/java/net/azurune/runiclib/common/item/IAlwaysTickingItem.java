@@ -64,6 +64,6 @@ public interface IAlwaysTickingItem {
         SPECIALSCOPE_2,
         SPECIALSCOPE_3,
         SPECIALSCOPE_4,
-        SPECIALSCOPE_5,
+        SPECIALSCOPE_5
     }
 }

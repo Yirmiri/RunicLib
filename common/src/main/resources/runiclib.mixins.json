@@ -21,6 +21,7 @@
     "server.MobEffectInstanceMixin",
     "server.MobMixin",
     "server.PlayerMixin",
+    "server.RecipeManagerMixin",
     "server.ServerLevelMixin",
     "server.WoodTypeInvokerMixin"
   ],

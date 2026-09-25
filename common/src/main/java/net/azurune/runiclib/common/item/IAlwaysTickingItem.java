@@ -1,5 +1,7 @@
 package net.azurune.runiclib.common.item;
 
+import net.azurune.runiclib.RunicLib;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
@@ -42,7 +44,7 @@ public interface IAlwaysTickingItem {
     void runicItemTick(IAlwaysTickingItem.Context context, ItemStack stack, Level level, Entity entity, Container container);
 
     /**
-     * The different contexts IAlwaysTickingItem supports.
+     * The built-in contexts IAlwaysTickingItem supports.
      * <p>
      * - <code>CONTAINER</code> - Within containers, such as Chests, Barrels, Furnaces, etc.<p>
      * - <code>ITEM_FRAME</code> - Within an Item Frame Slot<p>
@@ -50,20 +52,24 @@ public interface IAlwaysTickingItem {
      * - <code>LIVING_ENTITY</code> - Within an Armor Stand or Mob<p>
      * - <code>CHESTED_HORSE</code> - Within a Horse or Horse-like animal with a Chest<p>
      * - <code>CONTAINER_ENTITY</code> - Within any entity that implements <code>ContainerEntity</code><p>
-     * There also exists 5 <code>SPECIALSCOPE</code> contexts in the event a mod using RunicLib wants to add their own usages for this. May not be entirely useful, but it's here in case it is.
+     * You can create new versions of this context and use them in your own events, if adding integration.
      */
-    enum Context {
-        CONTAINER,
-        ITEM_FRAME,
-        ITEM_IN_WORLD,
-        LIVING_ENTITY,
-        CHESTED_HORSE,
-        CONTAINER_ENTITY,
+    class Context {
+        public static final Context CONTAINER = new Context(RunicLib.modid("container"), false, true);
+        public static final Context ITEM_FRAME = new Context(RunicLib.modid("item_frame"), true, false);
+        public static final Context ITEM_IN_WORLD = new Context(RunicLib.modid("item_in_world"), true, false);
+        public static final Context LIVING_ENTITY = new Context(RunicLib.modid("living_entity"), true, false);
+        public static final Context CHESTED_HORSE = new Context(RunicLib.modid("chested_horse"), true, false);
+        public static final Context CONTAINER_ENTITY = new Context(RunicLib.modid("container_entity"), true, false);
 
-        SPECIALSCOPE_1,
-        SPECIALSCOPE_2,
-        SPECIALSCOPE_3,
-        SPECIALSCOPE_4,
-        SPECIALSCOPE_5
+        public final ResourceLocation id;
+        public final boolean usesEntity;
+        public final boolean usesContainer;
+
+        public Context(ResourceLocation id, boolean entityScope, boolean containerScope) {
+            this.id = id;
+            this.usesEntity = entityScope;
+            this.usesContainer = containerScope;
+        }
     }
 }

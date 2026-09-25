@@ -8,6 +8,7 @@
     "server.AbstractFurnaceBlockEntityMixin",
     "server.AbstractHorseMixin",
     "server.AbstractMinecartMixin",
+    "server.AdvManagerMixin",
     "server.ArmorStandMixin",
     "server.AxeItemMixin",
     "server.BlockItemMixin",

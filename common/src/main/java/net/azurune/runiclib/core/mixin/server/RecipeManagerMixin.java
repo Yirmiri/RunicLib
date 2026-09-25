@@ -24,7 +24,7 @@ public class RecipeManagerMixin {
             at = @At(
                     value = "INVOKE",
                     target = "Lorg/slf4j/Logger;error(Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;)V"))
-    private void runicLib$catchStopper(Logger instance, String errorStr, Object a, Object b, Operation<Void> original) {
+    private void runicLib$catchStopperRecipe(Logger instance, String errorStr, Object a, Object b, Operation<Void> original) {
         if (RunicLib.CONFIG.getRunicLibSuppressLoadErrors()) {
             if (a instanceof ResourceLocation rescLoc && b instanceof Exception exc) {
                 RLLogSuppressor.Recipes.addRecipe(rescLoc, exc.getMessage());
@@ -39,9 +39,9 @@ public class RecipeManagerMixin {
             method = "apply(Ljava/util/Map;Lnet/minecraft/server/packs/resources/ResourceManager;Lnet/minecraft/util/profiling/ProfilerFiller;)V",
             at = @At("TAIL")
     )
-    private void runicLib$shoutErrorAttempt(Map<ResourceLocation, JsonElement> object, ResourceManager resourceManager, ProfilerFiller profiler, CallbackInfo ci) {
+    private void runicLib$readyUpRecipe(Map<ResourceLocation, JsonElement> object, ResourceManager resourceManager, ProfilerFiller profiler, CallbackInfo ci) {
         if (RunicLib.CONFIG.getRunicLibSuppressLoadErrors()) {
-            RLLogSuppressor.Recipes.compileWarning();
+            RLLogSuppressor.Recipes.markReady();
         }
     }
 }

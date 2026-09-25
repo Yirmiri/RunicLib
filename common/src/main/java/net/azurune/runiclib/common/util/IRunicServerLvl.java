@@ -6,6 +6,5 @@ import java.util.List;
 
 public interface IRunicServerLvl
 {
-    List<BlockPos> rl$getPingableContainers();
     void rl$scheduleForTicking(BlockPos pos);
 }

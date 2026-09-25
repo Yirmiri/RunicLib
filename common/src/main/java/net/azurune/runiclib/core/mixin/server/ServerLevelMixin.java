@@ -37,11 +37,11 @@ public abstract class ServerLevelMixin extends Level implements IRunicServerLvl 
 
     ////////////////////////////////////////////////////////////////////////////
 
+    @Unique private final List<BlockPos> rl$pendingTickableContainers = new ArrayList<>();
     @Unique private final List<BlockPos> rl$tickableContainers = new ArrayList<>();
     @Unique private final List<BlockPos> rl$tickableContainersScheduledForReset = new ArrayList<>();
 
-    @Override public List<BlockPos> rl$getPingableContainers() { return this.rl$tickableContainers; }
-    @Override public void rl$scheduleForTicking(BlockPos pos) { if (!this.rl$tickableContainers.contains(pos)) this.rl$tickableContainers.add(pos); }
+    @Override public void rl$scheduleForTicking(BlockPos pos) { if (!this.rl$pendingTickableContainers.contains(pos)) this.rl$pendingTickableContainers.add(pos); }
 
     @Inject(
             method = "tick",
@@ -52,6 +52,12 @@ public abstract class ServerLevelMixin extends Level implements IRunicServerLvl 
                     shift = At.Shift.AFTER)
     )
     private void runiclib$tickAndUpdateContainers(BooleanSupplier hasTimeLeft, CallbackInfo ci) {
+        // Run pending
+        if (!this.rl$pendingTickableContainers.isEmpty()) {
+            this.rl$tickableContainers.addAll(this.rl$pendingTickableContainers);
+            this.rl$pendingTickableContainers.clear();
+        }
+
         // Run list
         if (!this.rl$tickableContainers.isEmpty()) {
             Iterator<BlockPos> itr = this.rl$tickableContainers.iterator();

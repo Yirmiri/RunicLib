@@ -9,12 +9,15 @@ public class RunicLibConfig {
     public boolean getRunicLibCommands() {
         return runicLibCommands;
     }
-    public boolean getRunicLibSuppressLoadErrors() { return runicLibSuppressLoadErrors; }
+
+    public boolean getRunicLibSuppressLoadErrors() {
+        return runicLibSuppressLoadErrors;
+    }
 
     public Map<String, String> getComments() {
         return Map.of(
                 "rlCommands", "Toggles RunicLib's custom commands (default: true)",
-                "rlSuppressLoadErrors", "Toggles RunicLib's built-in supression for specific loading failures, such as recipes (default: true)"
+                "rlSuppressLoadErrors", "Toggles RunicLib's built-in suppression for specific loading failures, such as recipes (default: true)"
         );
     }
 }

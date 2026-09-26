@@ -30,6 +30,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.material.Fluid;
 
 import java.util.Arrays;
 import java.util.function.Supplier;
@@ -54,6 +55,12 @@ public class FabricRLRegistryHelper implements RLRegistryHelper {
     @Override
     public <T extends Item> Supplier<T> registerItem(String modid, String id, Supplier<T> supplier) {
         T register = Registry.register(BuiltInRegistries.ITEM, RunicLib.customid(modid, id), supplier.get());
+        return () -> register;
+    }
+
+    @Override
+    public <T extends Fluid> Supplier<T> registerFluid(String modid, String id, Supplier<T> supplier) {
+        T register = Registry.register(BuiltInRegistries.FLUID, RunicLib.customid(modid, id), supplier.get());
         return () -> register;
     }
 

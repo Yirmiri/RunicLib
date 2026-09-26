@@ -27,6 +27,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -67,6 +68,14 @@ public class ForgeRLRegistryHelper implements RLRegistryHelper {
         itemDeferredRegister.register(modEventBus);
 
         return itemDeferredRegister.register(id, supplier);
+    }
+
+    @Override
+    public <T extends Fluid> Supplier<T> registerFluid(String modid, String id, Supplier<T> supplier) {
+        DeferredRegister<Fluid> fluidDeferredRegister = DeferredRegister.create(Registries.FLUID, modid);
+        fluidDeferredRegister.register(modEventBus);
+
+        return fluidDeferredRegister.register(id, supplier);
     }
 
     @Override

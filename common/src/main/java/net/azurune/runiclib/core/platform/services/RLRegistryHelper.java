@@ -71,8 +71,6 @@ public interface RLRegistryHelper {
 
     <T extends Item> Supplier<T> registerItem(String modid, String id, Supplier<T> supplier);
 
-    <T extends Fluid> Supplier<T> registerFluid(String modid, String id, Supplier<T> supplier);
-
     /**
      * This method creates a ForgeSpawnEggItem on Forge and a SpawnEggItem on Fabric, this is due to SpawnEggItem not working on Forge
      * @param entity - The entity that should be spawned from the spawn egg

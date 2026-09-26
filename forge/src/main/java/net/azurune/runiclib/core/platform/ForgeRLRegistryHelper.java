@@ -71,14 +71,6 @@ public class ForgeRLRegistryHelper implements RLRegistryHelper {
     }
 
     @Override
-    public <T extends Fluid> Supplier<T> registerFluid(String modid, String id, Supplier<T> supplier) {
-        DeferredRegister<Fluid> fluidDeferredRegister = DeferredRegister.create(Registries.FLUID, modid);
-        fluidDeferredRegister.register(modEventBus);
-
-        return fluidDeferredRegister.register(id, supplier);
-    }
-
-    @Override
     public <T extends Mob> SpawnEggItem registerSpawnEgg(Supplier<EntityType<T>> entity, int mainColor, int highlightColor) {
         return new ForgeSpawnEggItem(entity, mainColor, highlightColor, new Item.Properties());
     }

@@ -59,12 +59,6 @@ public class FabricRLRegistryHelper implements RLRegistryHelper {
     }
 
     @Override
-    public <T extends Fluid> Supplier<T> registerFluid(String modid, String id, Supplier<T> supplier) {
-        T register = Registry.register(BuiltInRegistries.FLUID, RunicLib.customid(modid, id), supplier.get());
-        return () -> register;
-    }
-
-    @Override
     public <T extends Mob> SpawnEggItem registerSpawnEgg(Supplier<EntityType<T>> entity, int mainColor, int highlightColor) {
         return new SpawnEggItem(entity.get(), mainColor, highlightColor, new Item.Properties());
     }

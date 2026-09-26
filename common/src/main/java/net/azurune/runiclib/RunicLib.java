@@ -40,3 +40,4 @@ public class RunicLib {
 //dripstone conversion (required for ud)
 //liquid conversion (required for dd v2)
 //mod loaded condition for jsons
+//fluid registry

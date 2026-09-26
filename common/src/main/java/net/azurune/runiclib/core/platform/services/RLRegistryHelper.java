@@ -29,6 +29,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.WoodType;
+import net.minecraft.world.level.material.Fluid;
 
 import java.util.function.Supplier;
 
@@ -69,6 +70,8 @@ public interface RLRegistryHelper {
     <T extends Block> Supplier<T> registerBlock(String modid, String id, Supplier<T> supplier, boolean hasItem);
 
     <T extends Item> Supplier<T> registerItem(String modid, String id, Supplier<T> supplier);
+
+    <T extends Fluid> Supplier<T> registerFluid(String modid, String id, Supplier<T> supplier);
 
     /**
      * This method creates a ForgeSpawnEggItem on Forge and a SpawnEggItem on Fabric, this is due to SpawnEggItem not working on Forge

@@ -12,7 +12,7 @@ public class RunicLib {
     public static RunicLibConfig CONFIG;
 
     public static void init() {
-        Runiconfig.registerConfig(MOD_ID, RunicLibConfig.class, RunicLibConfig::new);
+        Runiconfig.registerConfig(MOD_ID, RunicLibConfig::new);
         CONFIG = Runiconfig.getConfig(MOD_ID);
 
         RLEffects.load();

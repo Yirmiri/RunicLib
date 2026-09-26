@@ -28,7 +28,7 @@ public class RLMixinCommons {
     }
 
     public static void rlMixinAdvMan(Logger instance, String errorStr, Object a, Object b, Operation<Void> original) {
-        if (RunicLib.CONFIG.getRunicLibSuppressLoadErrors()) {
+        if (RunicLib.CONFIG.runicLibSuppressLoadErrors.value()) {
             if (a instanceof ResourceLocation rescLoc && b instanceof Exception exc) {
                 RLLogSuppressor.Advancements.addAdv(rescLoc, exc.getMessage());
             }

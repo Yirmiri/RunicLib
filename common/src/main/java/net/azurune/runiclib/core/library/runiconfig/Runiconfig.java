@@ -1,168 +1,160 @@
 package net.azurune.runiclib.core.library.runiconfig;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import net.azurune.runiclib.core.platform.RLServices;
 
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
-import java.lang.reflect.Method;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.function.Supplier;
+import java.util.function.Function;
 
 public class Runiconfig {
-    private static final Map<String, Config<?>> CONFIGS = new HashMap<>();
-    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-    private static final Path configDirectory = Path.of("config");
+    private static final Map<String, Config<?>> CONFIGS = new LinkedHashMap<>();
 
-    public static <T> void registerConfig(String modid, Class<T> configClass, Supplier<T> defaultSupplier) {
+    public static <T> void registerConfig(String modid, Function<Runiconfig, T> configFactory) {
         if (CONFIGS.containsKey(modid)) {
-            throw new IllegalArgumentException("Config already registered for mod: " + modid);
+            throw new IllegalArgumentException("Config already registered for: " + modid);
         }
         try {
-            Files.createDirectories(configDirectory);
+            Files.createDirectories(RLServices.PLATFORM.configDir());
         } catch (IOException exception) {
             throw new RuntimeException("Failed to create config directory", exception);
         }
+        Runiconfig config = new Runiconfig(modid);
+        T configInstance = configFactory.apply(config);
 
-        Path configFile = configDirectory.resolve(modid + ".json5");
-        T defaultConfig = defaultSupplier.get();
-        T config = loadConfigFile(configFile, configClass, defaultConfig);
-        CONFIGS.put(modid, new Config<>(configFile, config));
-        saveConfig(modid);
+        config.load();
+        CONFIGS.put(modid, new Config<>(config, configInstance));
+        config.save();
     }
 
     @SuppressWarnings("unchecked")
     public static <T> T getConfig(String modid) {
-        if (!CONFIGS.containsKey(modid)) {
-            throw new IllegalArgumentException("No config registered for mod: " + modid);
+        Config<?> config = CONFIGS.get(modid);
+        if (config == null) {
+            throw new IllegalArgumentException("No config registered for: " + modid);
         }
-        return (T) CONFIGS.get(modid).config;
+        return (T) config.config;
     }
 
-    public static void saveConfig(String modid) {
-        if (!CONFIGS.containsKey(modid)) {
-            throw new IllegalArgumentException("No config registered for mod: " + modid);
+    private final String modid;
+    private final Path configPath;
+    private final Map<String, ConfigCategory> categories = new LinkedHashMap<>();
+    private final ConfigCategory defaultCategory = new ConfigCategory(null);
+
+    private JsonObject configObject = new JsonObject();
+
+    private Runiconfig(String modid) {
+        this.modid = modid;
+        this.configPath = RLServices.PLATFORM.configDir().resolve(modid + ".json5");
+    }
+
+    public ConfigCategory category(String name) {
+        if (categories.containsKey(name)) {
+            throw new IllegalArgumentException("Config category already registered for: " + name);
         }
+        ConfigCategory category = new ConfigCategory(name);
+        categories.put(name, category);
 
-        Config<?> config = CONFIGS.get(modid);
+        return category;
+    }
+
+    public void load() {
         try {
-            JsonObject object = GSON.toJsonTree(config.config).getAsJsonObject();
-            Map<String, String> comments = getComments(config.config);
+            Files.createDirectories(RLServices.PLATFORM.configDir());
 
-            try (Writer writer = Files.newBufferedWriter(config.path)) {
-                writer.write("{\n");
+            if (!Files.exists(configPath)) {
+                configObject = new JsonObject();
+                return;
+            }
 
-                int index = 0;
-                for (Map.Entry<String, JsonElement> entry : object.entrySet()) {
-                    String comment = comments.get(entry.getKey());
+            try (Reader reader = Files.newBufferedReader(configPath)) {
+                JsonElement element = JsonParser.parseReader(reader);
 
-                    if (comment != null) {
-                        writer.write("    //" + comment + "\n");
-                    }
-                    writer.write("    \"");
-                    writer.write(entry.getKey());
-                    writer.write("\": ");
-                    writer.write(GSON.toJson(entry.getValue()));
-
-                    if (index < object.size() - 1) {
-                        writer.write(",");
-                    }
-
-                    writer.write("\n");
-                    index++;
+                if (element.isJsonObject()) {
+                    configObject = element.getAsJsonObject();
+                } else {
+                    configObject = new JsonObject();
                 }
-                writer.write("}\n");
+            }
+            defaultCategory.load(configObject);
+
+            for (ConfigCategory category : categories.values()) {
+                category.load(configObject);
+            }
+        } catch (Exception exception) {
+            configObject = new JsonObject();
+        }
+    }
+
+    public void save() {
+        try {
+            Files.createDirectories(RLServices.PLATFORM.configDir());
+
+            try (Writer writer = Files.newBufferedWriter(configPath)) {
+                write(writer, "{\n");
+
+                boolean hasPrevious = false;
+
+                if (!defaultCategory.isEmpty()) {
+                    hasPrevious = writeCategory(writer, defaultCategory, hasPrevious);
+                }
+
+                for (ConfigCategory category : categories.values()) {
+                    hasPrevious = writeCategory(writer, category, hasPrevious);
+                }
+
+                write(writer, "}\n");
             }
         } catch (IOException exception) {
             throw new RuntimeException("Failed to save config for mod: " + modid, exception);
         }
     }
 
-    private static <T> T loadConfigFile(Path path, Class<T> clazz, T defaultConfig) {
-        if (!Files.exists(path)) {
-            saveConfigFile(path, defaultConfig);
-            return defaultConfig;
+    private boolean writeCategory(Writer writer, ConfigCategory category, boolean hasPrevious) throws IOException {
+        if (hasPrevious) {
+            write(writer, "\n");
         }
+        if (category.name() != null && !category.name().isEmpty()) {
+            write(writer, "  //-----[", category.name(), "]------\n\n");
+        }
+        int index = 0;
 
-        try (Reader reader = Files.newBufferedReader(path)) {
-            JsonElement element = JsonParser.parseReader(reader);
+        for (ConfigValue<?> value : category.values()) {
+            write(writer, "      //", value.getComment(), "\n");
 
-            if (!element.isJsonObject()) {
-                saveConfigFile(path, defaultConfig);
-                return defaultConfig;
+            if (value instanceof NumberConfigValue<?> numeric) {
+                write(writer, "      //range: ", numeric.getMin().toString(), " ~ ", numeric.getMax().toString(), " (default: ", numeric.defaultValue().toString(), ")\n");
+            } else {
+                write(writer, "      //(default: ", value.defaultValue().toString(), ")\n");
             }
-            JsonObject object = element.getAsJsonObject();
-            JsonObject defaults = GSON.toJsonTree(defaultConfig).getAsJsonObject();
+            write(writer, "      \"", value.getId(), "\": ", value.serialize());
 
-            for (Map.Entry<String, JsonElement> entry : defaults.entrySet()) {
-                if (!object.has(entry.getKey())) {
-                    object.add(entry.getKey(), entry.getValue());
-                }
+            if (index < category.values().size() - 1) {
+                write(writer, ",");
             }
-            T loaded = GSON.fromJson(object, clazz);
-            return loaded != null ? loaded : defaultConfig;
-        } catch (Exception exception) {
-            saveConfigFile(path, defaultConfig);
-            return defaultConfig;
+            write(writer, "\n");
+
+            if (index < category.values().size() - 1) {
+                write(writer, "\n");
+            }
+            index++;
+        }
+        return true;
+    }
+
+    private void write(Writer writer, String... parts) throws IOException {
+        for (String part : parts) {
+            writer.write(part);
         }
     }
 
-    private static <T> void saveConfigFile(Path path, T config) {
-        try {
-            Files.createDirectories(configDirectory);
-
-            JsonObject object = GSON.toJsonTree(config).getAsJsonObject();
-            Map<String, String> comments = getComments(config);
-
-            try (Writer writer = Files.newBufferedWriter(path)) {
-                writer.write("{\n");
-
-                int index = 0;
-                for (Map.Entry<String, JsonElement> entry : object.entrySet()) {
-                    String comment = comments.get(entry.getKey());
-
-                    if (comment != null) {
-                        writer.write("    //" + comment + "\n");
-                    }
-
-                    writer.write("    \"");
-                    writer.write(entry.getKey());
-                    writer.write("\": ");
-                    writer.write(GSON.toJson(entry.getValue()));
-
-                    if (index < object.size() - 1) {
-                        writer.write(",");
-                    }
-
-                    writer.write("\n");
-                    index++;
-                }
-                writer.write("}\n");
-            }
-        } catch (IOException exception) {
-            throw new RuntimeException("Failed to save config file: " + path, exception);
-        }
-    }
-
-    @SuppressWarnings("unchecked")
-    private static Map<String, String> getComments(Object config) {
-        try {
-            Method method = config.getClass().getMethod("getComments");
-            return (Map<String, String>) method.invoke(config);
-        } catch (NoSuchMethodException exception) {
-            return Map.of();
-        } catch (Exception exception) {
-            throw new RuntimeException("Failed to load config comments", exception);
-        }
-    }
-
-    private record Config<T>(Path path, T config) {
+    private record Config<T>(Runiconfig runiconfig, T config) {
     }
 }

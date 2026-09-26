@@ -1,23 +1,26 @@
 package net.azurune.runiclib;
 
-import java.util.Map;
+import net.azurune.runiclib.core.library.runiconfig.ConfigCategory;
+import net.azurune.runiclib.core.library.runiconfig.ConfigValue;
+import net.azurune.runiclib.core.library.runiconfig.NumberConfigValue;
+import net.azurune.runiclib.core.library.runiconfig.Runiconfig;
 
 public class RunicLibConfig {
-    private boolean runicLibCommands = true;
-    private boolean runicLibSuppressLoadErrors = true;
+    public final ConfigValue<Boolean> runicLibCommands;
+    public final ConfigValue<Boolean> runicLibSuppressLoadErrors;
 
-    public boolean getRunicLibCommands() {
-        return runicLibCommands;
-    }
+    //public final NumberConfigValue<Double> testDouble;
 
-    public boolean getRunicLibSuppressLoadErrors() {
-        return runicLibSuppressLoadErrors;
-    }
+    public RunicLibConfig(Runiconfig config) {
+        ConfigCategory general = config.category("General");
 
-    public Map<String, String> getComments() {
-        return Map.of(
-                "rlCommands", "Toggles RunicLib's custom commands (default: true)",
-                "rlSuppressLoadErrors", "Toggles RunicLib's built-in suppression for specific loading failures, such as recipes (default: true)"
-        );
+        runicLibCommands = general.value("rlCommands",
+                "Toggles RunicLib's custom commands", true);
+
+        runicLibSuppressLoadErrors = general.value("rlSuppressLoadErrors",
+                "Toggles RunicLib's built-in suppression for specific loading failures, such as recipes", true);
+
+//        testDouble = general.doubleValue("testDouble",
+//                "just a test for double configs", 0.7, 0.5D, 1.5D);
     }
 }

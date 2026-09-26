@@ -28,7 +28,7 @@ public class ConfigValue<T> {
         }
     }
 
-    public T value() {
+    public T getValue() {
         return value;
     }
 

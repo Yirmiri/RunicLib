@@ -18,7 +18,7 @@ public class ForgeRunicLib {
 
     @SubscribeEvent
     public void registerCommands(RegisterCommandsEvent event) {
-        if (RunicLib.CONFIG.runicLibCommands.value()) {
+        if (RunicLib.CONFIG.runicLibCommands.getValue()) {
             HungerCommand.register(event.getDispatcher());
             SaturationCommand.register(event.getDispatcher());
             SetNameCommand.register(event.getDispatcher());

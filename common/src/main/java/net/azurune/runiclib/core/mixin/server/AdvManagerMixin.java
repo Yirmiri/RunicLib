@@ -21,7 +21,7 @@ public class AdvManagerMixin {
             at = @At("TAIL")
     )
     private void runicLib$readyUpAdv(Map<ResourceLocation, JsonElement> object, ResourceManager resourceManager, ProfilerFiller profiler, CallbackInfo ci) {
-        if (RunicLib.CONFIG.runicLibSuppressLoadErrors.value()) {
+        if (RunicLib.CONFIG.runicLibSuppressLoadErrors.getValue()) {
             RLLogSuppressor.Advancements.markReady();
         }
     }

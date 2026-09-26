@@ -27,17 +27,23 @@ public class RunicLib {
     }
 }
 
-//todo runiclib v6.0
+//todo backport/move changes
 //backport capes
-//backport effect changes + attributes (leave out 1.21.1 purpose ones)
-//port some attributes from aurynium (also port to 1.21.1)
+//backport effect changes
+//port shovel/hoe tool actions
 //vector network stuff
+//backport attributes but rework to be better and maybe port some aurynium ones (use my aurynium lifesteal for example)
+
+//todo - @artyriain
+//mod loaded condition for jsons
+
+//todo - required for new fluid
+//fluid registry
+//dripstone conversion
+//liquid conversion
+
+//todo - crazy extras
 //runic event system(?), hopefully unify many loader things
 //unify mod loader loot modifiers
 //unify mod loader biome modifiers
 //shader thing similar to nexus (figure out smthing cuz last time i did this it crashed cuz nexus' is quite greedy)
-//port shovel/hoe tool actions
-//dripstone conversion (required for ud)
-//liquid conversion (required for dd v2)
-//mod loaded condition for jsons
-//fluid registry

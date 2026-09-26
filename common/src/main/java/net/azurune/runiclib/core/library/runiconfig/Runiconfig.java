@@ -103,13 +103,15 @@ public class Runiconfig {
                 boolean hasPrevious = false;
 
                 if (!defaultCategory.isEmpty()) {
-                    hasPrevious = writeCategory(writer, defaultCategory, hasPrevious);
+                    hasPrevious = writeCategory(writer, defaultCategory, hasPrevious, !categories.isEmpty());
                 }
 
+                int categoryIndex = 0;
                 for (ConfigCategory category : categories.values()) {
-                    hasPrevious = writeCategory(writer, category, hasPrevious);
+                    boolean hasNextCategory = categoryIndex < categories.size() - 1;
+                    hasPrevious = writeCategory(writer, category, hasPrevious, hasNextCategory);
+                    categoryIndex++;
                 }
-
                 write(writer, "}\n");
             }
         } catch (IOException exception) {
@@ -117,7 +119,7 @@ public class Runiconfig {
         }
     }
 
-    private boolean writeCategory(Writer writer, ConfigCategory category, boolean hasPrevious) throws IOException {
+    private boolean writeCategory(Writer writer, ConfigCategory category, boolean hasPrevious, boolean hasNextCategory) throws IOException {
         if (hasPrevious) {
             write(writer, "\n");
         }
@@ -136,7 +138,7 @@ public class Runiconfig {
             }
             write(writer, "      \"", value.getId(), "\": ", value.serialize());
 
-            if (index < category.values().size() - 1) {
+            if (index < category.values().size() - 1 || hasNextCategory) {
                 write(writer, ",");
             }
             write(writer, "\n");

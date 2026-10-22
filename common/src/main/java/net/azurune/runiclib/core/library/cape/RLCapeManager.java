@@ -1,4 +1,4 @@
-package net.azurune.runiclib.core.library.cosmetic;
+package net.azurune.runiclib.core.library.cape;
 
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.network.chat.Component;

@@ -1,18 +1,15 @@
-package net.azurune.runiclib.core.library.commons;
+package net.azurune.runiclib.core.library.common;
 
 import com.mojang.brigadier.CommandDispatcher;
 import net.azurune.runiclib.RunicLib;
 import net.azurune.runiclib.common.command.*;
-import net.azurune.runiclib.core.library.cosmetic.RLCapeManager;
+import net.azurune.runiclib.core.library.cape.RLCapeManager;
 import net.azurune.runiclib.core.library.network.payload.ClearCapePayload;
 import net.azurune.runiclib.core.library.network.payload.SyncCapePayload;
 import net.azurune.runiclib.core.platform.RLServices;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.server.level.ServerPlayer;
-
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 
 /**
  * Code used between loaders
@@ -39,7 +36,7 @@ public class RLCommonCode {
     }
 
     public static void commands(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext ctx) {
-        if (RunicLib.CONFIG.getRLCommandsEnabled()) {
+        if (RunicLib.CONFIG.getRunicLibCommands()) {
             HungerCommand.register(dispatcher);
             SaturationCommand.register(dispatcher);
             SetNameCommand.register(dispatcher);

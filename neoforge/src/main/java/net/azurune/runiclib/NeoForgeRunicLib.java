@@ -1,7 +1,7 @@
 package net.azurune.runiclib;
 
-import net.azurune.runiclib.core.library.commons.RLCommonCode;
-import net.azurune.runiclib.core.library.cosmetic.RLCapeClientManager;
+import net.azurune.runiclib.core.library.common.RLCommonCode;
+import net.azurune.runiclib.core.library.cape.RLCapeClientManager;
 import net.azurune.runiclib.core.library.network.RLC2SPayloads;
 import net.azurune.runiclib.core.library.network.RLS2CPayloads;
 import net.azurune.runiclib.core.library.network.payload.ClearCapePayload;

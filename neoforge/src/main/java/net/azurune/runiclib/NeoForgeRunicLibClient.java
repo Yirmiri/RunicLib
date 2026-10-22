@@ -1,6 +1,6 @@
 package net.azurune.runiclib;
 
-import net.azurune.runiclib.core.library.commons.RLClientCommonCode;
+import net.azurune.runiclib.core.library.common.RLClientCommonCode;
 import net.minecraft.client.Minecraft;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;

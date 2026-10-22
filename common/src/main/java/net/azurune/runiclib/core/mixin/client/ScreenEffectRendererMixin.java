@@ -1,7 +1,7 @@
 package net.azurune.runiclib.core.mixin.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.azurune.runiclib.core.register.RLMobEffects;
+import net.azurune.runiclib.core.register.RLEffects;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.ScreenEffectRenderer;
@@ -17,7 +17,7 @@ public class ScreenEffectRendererMixin {
 	private static void runiclib$renderFire(Minecraft minecraft, PoseStack poseStack, CallbackInfo ci) {
 		LocalPlayer player = Minecraft.getInstance().player;
 
-		if (player != null && player.hasEffect(RLMobEffects.BRIMSTONE_VISION))
+		if (player != null && player.hasEffect(RLEffects.BRIMSTONE_VISION))
 			poseStack.translate(0, -0.25, 0);
 	}
 }

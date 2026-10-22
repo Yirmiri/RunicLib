@@ -1,7 +1,7 @@
 package net.azurune.runiclib.common.effect;
 
 import net.azurune.runiclib.common.publicized.PublicMobEffect;
-import net.azurune.runiclib.core.register.RLMobEffects;
+import net.azurune.runiclib.core.register.RLEffects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
@@ -16,7 +16,7 @@ public class TrailBlazingEffect extends PublicMobEffect {
     @Override
     public boolean applyEffectTick(LivingEntity living, int amplifier) {
         BlockPos pos = living.blockPosition();
-        if (living.hasEffect(RLMobEffects.TRAIL_BLAZING) && living.level().getBlockState(pos).isAir() && !living.isCrouching()) {
+        if (living.hasEffect(RLEffects.TRAIL_BLAZING) && living.level().getBlockState(pos).isAir() && !living.isCrouching()) {
             if (living instanceof Player player && player.isSprinting()) {
                 living.level().setBlockAndUpdate(pos, Blocks.FIRE.defaultBlockState()); //TODO: custom fire that dissipates after time
             } else living.level().setBlockAndUpdate(pos, Blocks.FIRE.defaultBlockState());

@@ -1,6 +1,6 @@
 package net.azurune.runiclib.datagen;
 
-import net.azurune.runiclib.core.register.RLMobEffects;
+import net.azurune.runiclib.core.register.RLEffects;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.minecraft.core.HolderLookup;
@@ -40,30 +40,30 @@ public class RLLangGen extends FabricLanguageProvider {
         build.add("runiclib.cape.shiny_pearl", "Shiny Pearl");
 
         //BENEFICIAL EFFECTS
-        build.add(RLMobEffects.WATER_WALKING.value(), "Water Walking");
-        build.add(RLMobEffects.LAVA_WALKING.value(), "Lava Walking");
-        build.add(RLMobEffects.TRAIL_BLAZING.value(), "Trail Blazing");
-        build.add(RLMobEffects.PERCEPTION.value(), "Perception");
-        build.add(RLMobEffects.PYROMANIAC.value(), "Pyromaniac");
-        build.add(RLMobEffects.BERSERK.value(), "Berserk");
-        build.add(RLMobEffects.TRAVERSAL.value(), "Traversal");
-        build.add(RLMobEffects.BRIMSTONE_VISION.value(), "Brimstone Vision");
-        build.add(RLMobEffects.RETALIATION.value(), "Retaliation");
-        build.add(RLMobEffects.BURNING_THORNS.value(), "Burning Thorns");
-        build.add(RLMobEffects.ADRENALINE.value(), "Adrenaline");
-        build.add(RLMobEffects.SHATTERSPLEEN.value(), "Shatterspleen");
-        build.add(RLMobEffects.CHRONOS.value(), "Chronos");
-        build.add(RLMobEffects.TEMPUS.value(), "Tempus");
-        build.add(RLMobEffects.BLEEDING.value(), "Bleeding");
-        build.add(RLMobEffects.BLOOD_CLOT.value(), "Blood Clot");
-        build.add(RLMobEffects.CONFUSION.value(), "Confusion");
-        build.add(RLMobEffects.CREATIVE_SHOCK.value(), "Creative Shock");
-        build.add(RLMobEffects.VENOM.value(), "Venom");
-        build.add(RLMobEffects.HEARTBREAK.value(), "Heartbreak");
-        build.add(RLMobEffects.LESSER_WEAKNESS.value(), "Lesser Weakness");
-        build.add(RLMobEffects.LESSER_STRENGTH.value(), "Lesser Strength");
-        build.add(RLMobEffects.CAFFEINATED.value(), "Caffeinated");
-        build.add(RLMobEffects.CAFFEINE_CRASH.value(), "Caffeine Crash");
+        build.add(RLEffects.WATER_WALKING.value(), "Water Walking");
+        build.add(RLEffects.LAVA_WALKING.value(), "Lava Walking");
+        build.add(RLEffects.TRAIL_BLAZING.value(), "Trail Blazing");
+        build.add(RLEffects.PERCEPTION.value(), "Perception");
+        build.add(RLEffects.PYROMANIAC.value(), "Pyromaniac");
+        build.add(RLEffects.BERSERK.value(), "Berserk");
+        build.add(RLEffects.TRAVERSAL.value(), "Traversal");
+        build.add(RLEffects.BRIMSTONE_VISION.value(), "Brimstone Vision");
+        build.add(RLEffects.RETALIATION.value(), "Retaliation");
+        build.add(RLEffects.BURNING_THORNS.value(), "Burning Thorns");
+        build.add(RLEffects.ADRENALINE.value(), "Adrenaline");
+        build.add(RLEffects.SHATTERSPLEEN.value(), "Shatterspleen");
+        build.add(RLEffects.CHRONOS.value(), "Chronos");
+        build.add(RLEffects.TEMPUS.value(), "Tempus");
+        build.add(RLEffects.BLEEDING.value(), "Bleeding");
+        build.add(RLEffects.BLOOD_CLOT.value(), "Blood Clot");
+        build.add(RLEffects.CONFUSION.value(), "Confusion");
+        build.add(RLEffects.CREATIVE_SHOCK.value(), "Creative Shock");
+        build.add(RLEffects.VENOM.value(), "Venom");
+        build.add(RLEffects.HEARTBREAK.value(), "Heartbreak");
+        build.add(RLEffects.LESSER_WEAKNESS.value(), "Lesser Weakness");
+        build.add(RLEffects.LESSER_STRENGTH.value(), "Lesser Strength");
+        build.add(RLEffects.CAFFEINATED.value(), "Caffeinated");
+        build.add(RLEffects.CAFFEINE_CRASH.value(), "Caffeine Crash");
 
         //COMMANDS
         build.add("runiclib.commands.hunger.fail", "Target's hunger could not be changed");

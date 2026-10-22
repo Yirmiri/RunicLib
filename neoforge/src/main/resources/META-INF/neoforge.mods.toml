@@ -5,7 +5,7 @@ license = "AZURUNE License" # Review your options at https://choosealicense.com/
 
 [[mods]] #mandatory
 modId = "runiclib" #mandatory
-version = "5.0.8" #mandatory
+version = "6.0.0" #mandatory
 displayName = "RunicLib" #mandatory
 #updateJSONURL="https://change.me.example.invalid/updates.json" #optional (see https://docs.neoforged.net/docs/misc/updatechecker/)
 #displayURL="https://change.me.to.your.mods.homepage.example.invalid/" #optional (displayed in the mod UI)

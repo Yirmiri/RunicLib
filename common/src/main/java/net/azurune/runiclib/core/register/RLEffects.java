@@ -11,7 +11,7 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 
-public class RLMobEffects {
+public class RLEffects {
     //BENEFICIAL
     public static final Holder<MobEffect> WATER_WALKING = register("water_walking", new PublicMobEffect(MobEffectCategory.BENEFICIAL, 0x5c89dc));
     public static final Holder<MobEffect> LAVA_WALKING = register("lava_walking", new PublicMobEffect(MobEffectCategory.BENEFICIAL, 0xc34c02));

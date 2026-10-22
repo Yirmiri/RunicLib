@@ -1,9 +1,9 @@
 package net.azurune.runiclib;
 
-import net.azurune.runiclib.core.library.cosmetic.RLCapeManager;
+import net.azurune.runiclib.core.library.cape.RLCapeManager;
 import net.azurune.runiclib.core.library.runiconfig.Runiconfig;
 import net.azurune.runiclib.core.register.RLAttributes;
-import net.azurune.runiclib.core.register.RLMobEffects;
+import net.azurune.runiclib.core.register.RLEffects;
 import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +17,7 @@ public class RunicLib {
         Runiconfig.registerConfig(MOD_ID, RunicLibConfig.class, RunicLibConfig::new);
         CONFIG = new RunicLibConfig();
 
-        RLMobEffects.loadMobEffects();
+        RLEffects.loadMobEffects();
         RLAttributes.loadAttributes();
 
         RLCapeManager.initialize();

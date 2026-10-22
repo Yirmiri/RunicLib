@@ -1,6 +1,6 @@
 package net.azurune.runiclib.core.mixin.server;
 
-import net.azurune.runiclib.core.register.RLMobEffects;
+import net.azurune.runiclib.core.register.RLEffects;
 import net.azurune.runiclib.common.util.IMobEffectInstance;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -23,7 +23,7 @@ public class MobEffectInstanceMixin implements IMobEffectInstance {
     @Inject(at = @At("HEAD"), method = "tickDownDuration", cancellable = true)
     public void runiclib$tickDownDuration(CallbackInfoReturnable<Integer> cir) {
         if (living != null) {
-            if (this.effect != RLMobEffects.CHRONOS && living.hasEffect(RLMobEffects.CHRONOS)) {
+            if (this.effect != RLEffects.CHRONOS && living.hasEffect(RLEffects.CHRONOS)) {
                 cir.setReturnValue(this.duration);
             }
         }

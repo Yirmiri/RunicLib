@@ -1,7 +1,7 @@
 package net.azurune.runiclib.core.mixin.server;
 
 import net.azurune.runiclib.core.register.RLAttributes;
-import net.azurune.runiclib.core.register.RLMobEffects;
+import net.azurune.runiclib.core.register.RLEffects;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
@@ -48,14 +48,14 @@ public class PlayerMixin {
 
     @Inject(at = @At("HEAD"), method = "isHurt", cancellable = true)
     public void runiclib$isHurt(CallbackInfoReturnable<Boolean> cir) {
-        if (player.hasEffect(RLMobEffects.BLOOD_CLOT)) {
+        if (player.hasEffect(RLEffects.BLOOD_CLOT)) {
             cir.setReturnValue(false);
         }
     }
 
     @Inject(at = @At("HEAD"), method = "isReducedDebugInfo", cancellable = true)
     public void runiclib$hasReducedDebugInfo(CallbackInfoReturnable<Boolean> cir) {
-        if (player.hasEffect(RLMobEffects.CONFUSION)) {
+        if (player.hasEffect(RLEffects.CONFUSION)) {
             cir.setReturnValue(true);
         }
     }

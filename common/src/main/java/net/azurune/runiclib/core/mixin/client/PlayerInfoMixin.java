@@ -1,7 +1,7 @@
 package net.azurune.runiclib.core.mixin.client;
 
 import com.mojang.authlib.GameProfile;
-import net.azurune.runiclib.core.library.cosmetic.RLCapeManager;
+import net.azurune.runiclib.core.library.cape.RLCapeManager;
 import net.minecraft.client.resources.PlayerSkin;
 import net.minecraft.client.multiplayer.PlayerInfo;
 import net.minecraft.resources.ResourceLocation;

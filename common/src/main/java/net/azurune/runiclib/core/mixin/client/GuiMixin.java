@@ -2,11 +2,10 @@ package net.azurune.runiclib.core.mixin.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.azurune.runiclib.RunicLib;
-import net.azurune.runiclib.core.register.RLMobEffects;
+import net.azurune.runiclib.core.register.RLEffects;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
@@ -18,7 +17,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Map;
@@ -35,9 +33,9 @@ public class GuiMixin {
     private static final ResourceLocation HEART_CONFUSION_TEXTURE = RunicLib.modid("hud/heart/confusion_empty");
     private static final ResourceLocation FOOD_CONFUSION_TEXTURE = RunicLib.modid("hud/hunger/confusion_empty");
 
-    private static final Map<Holder<MobEffect>, ResourceLocation> HEART_ICONS_MAP = Map.ofEntries(Map.entry(RLMobEffects.CONFUSION, HEART_CONFUSION_TEXTURE));
-    private static final Map<Holder<MobEffect>, ResourceLocation> CONTAINER_ICONS_MAP = Map.ofEntries(Map.entry(RLMobEffects.CONFUSION, HEART_CONFUSION_TEXTURE));
-    private static final Map<Holder<MobEffect>, ResourceLocation> BLINKING_CONTAINER_ICONS_MAP = Map.ofEntries(Map.entry(RLMobEffects.CONFUSION, HEART_CONFUSION_TEXTURE));
+    private static final Map<Holder<MobEffect>, ResourceLocation> HEART_ICONS_MAP = Map.ofEntries(Map.entry(RLEffects.CONFUSION, HEART_CONFUSION_TEXTURE));
+    private static final Map<Holder<MobEffect>, ResourceLocation> CONTAINER_ICONS_MAP = Map.ofEntries(Map.entry(RLEffects.CONFUSION, HEART_CONFUSION_TEXTURE));
+    private static final Map<Holder<MobEffect>, ResourceLocation> BLINKING_CONTAINER_ICONS_MAP = Map.ofEntries(Map.entry(RLEffects.CONFUSION, HEART_CONFUSION_TEXTURE));
 
     @Inject(at = @At("HEAD"), method = "renderHeart", cancellable = true)
     private void runiclib$renderHeart(GuiGraphics ctx, Gui.HeartType type, int x, int y, boolean hardcore, boolean halfHeart, boolean blinking, CallbackInfo ci) {
@@ -90,7 +88,7 @@ public class GuiMixin {
             ResourceLocation halfTexture = null;
             ResourceLocation fullTexture = null;
 
-            if (player.hasEffect(RLMobEffects.CONFUSION)) {
+            if (player.hasEffect(RLEffects.CONFUSION)) {
                 emptyTexture = FOOD_CONFUSION_TEXTURE;
                 halfTexture = FOOD_CONFUSION_TEXTURE;
                 fullTexture = FOOD_CONFUSION_TEXTURE;

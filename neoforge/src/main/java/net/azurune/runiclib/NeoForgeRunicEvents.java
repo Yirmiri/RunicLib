@@ -1,6 +1,6 @@
 package net.azurune.runiclib;
 
-import net.azurune.runiclib.core.library.commons.RLCommonCode;
+import net.azurune.runiclib.core.library.common.RLCommonCode;
 import net.azurune.runiclib.core.library.misc.RLTrade;
 import net.azurune.runiclib.core.platform.NeoForgeRLRegistryHelper;
 import net.minecraft.server.level.ServerPlayer;

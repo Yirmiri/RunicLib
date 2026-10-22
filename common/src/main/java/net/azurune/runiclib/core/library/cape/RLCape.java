@@ -1,4 +1,4 @@
-package net.azurune.runiclib.core.library.cosmetic;
+package net.azurune.runiclib.core.library.cape;
 
 import net.azurune.runiclib.RunicLib;
 import net.minecraft.resources.ResourceLocation;

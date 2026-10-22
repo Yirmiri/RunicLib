@@ -3,7 +3,7 @@ package net.azurune.runiclib.core.mixin.server;
 import net.azurune.runiclib.common.effect.TickEffectImmuneEffect;
 import net.azurune.runiclib.core.init.RLDamageTypes;
 import net.azurune.runiclib.core.init.RLTags;
-import net.azurune.runiclib.core.register.RLMobEffects;
+import net.azurune.runiclib.core.register.RLEffects;
 import net.azurune.runiclib.common.util.IMobEffectInstance;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
@@ -39,29 +39,29 @@ public abstract class LivingEntityEffectsMixin {
     public void runiclib$tickEffects(CallbackInfo ci) {
         for (MobEffectInstance statusEffect : this.activeEffects.values()) {
             if (!(statusEffect.getEffect() instanceof InstantenousMobEffect) || !statusEffect.getEffect().is(RLTags.EffectTags.CHRONOS_BLACKLISTED)
-                    || !(statusEffect.getEffect() instanceof TickEffectImmuneEffect) || !(statusEffect.getEffect() == RLMobEffects.CHRONOS)) {
+                    || !(statusEffect.getEffect() instanceof TickEffectImmuneEffect) || !(statusEffect.getEffect() == RLEffects.CHRONOS)) {
 
                 if (statusEffect instanceof IMobEffectInstance effect) {
                     effect.setEntity((LivingEntity) (Object) this);
                 }
             }
 
-            if (statusEffect.getEffect() == RLMobEffects.CHRONOS) {
+            if (statusEffect.getEffect() == RLEffects.CHRONOS) {
                 if (this.activeEffects.values().size() > 2) {
-                    living.forceAddEffect(new MobEffectInstance(RLMobEffects.CHRONOS, statusEffect.getDuration() - (this.activeEffects.values().size() - 2), 0), living);
+                    living.forceAddEffect(new MobEffectInstance(RLEffects.CHRONOS, statusEffect.getDuration() - (this.activeEffects.values().size() - 2), 0), living);
                 }
             }
 
-            if (living.hasEffect(RLMobEffects.TEMPUS)) {
-                int tempusAmplifier = this.activeEffects.get(RLMobEffects.TEMPUS).getAmplifier();
-                if (!living.hasEffect(RLMobEffects.CHRONOS)) {
-                    if (statusEffect.getEffect() != RLMobEffects.TEMPUS && !statusEffect.getEffect().is(RLTags.EffectTags.TEMPUS_BLACKLISTED)) {
+            if (living.hasEffect(RLEffects.TEMPUS)) {
+                int tempusAmplifier = this.activeEffects.get(RLEffects.TEMPUS).getAmplifier();
+                if (!living.hasEffect(RLEffects.CHRONOS)) {
+                    if (statusEffect.getEffect() != RLEffects.TEMPUS && !statusEffect.getEffect().is(RLTags.EffectTags.TEMPUS_BLACKLISTED)) {
                         living.forceAddEffect(new MobEffectInstance(statusEffect.getEffect(), statusEffect.getDuration() - (tempusAmplifier + 1), 0), living);
                     }
                 }
 
-                else if (living.hasEffect(RLMobEffects.CHRONOS)) {
-                    if (statusEffect.getEffect() == RLMobEffects.CHRONOS) {
+                else if (living.hasEffect(RLEffects.CHRONOS)) {
+                    if (statusEffect.getEffect() == RLEffects.CHRONOS) {
                         living.forceAddEffect(new MobEffectInstance(statusEffect.getEffect(), statusEffect.getDuration() - (tempusAmplifier + 1), 0), living);
                     }
                 }
@@ -73,16 +73,16 @@ public abstract class LivingEntityEffectsMixin {
     public void runiclib$canStandOnFluid(FluidState state, CallbackInfoReturnable<Boolean> cir) {
         if (!living.isCrouching()) { //TODO: Allow the ability to swim under liquids
             if (state.getType() == Fluids.WATER || state.getType() == Fluids.FLOWING_WATER)
-                if (living != null && (this.living.hasEffect(RLMobEffects.WATER_WALKING))) cir.setReturnValue(true);
+                if (living != null && (this.living.hasEffect(RLEffects.WATER_WALKING))) cir.setReturnValue(true);
 
             if (state.getType() == Fluids.LAVA || state.getType() == Fluids.FLOWING_LAVA)
-                if (living != null && (this.living.hasEffect(RLMobEffects.LAVA_WALKING))) cir.setReturnValue(true);
+                if (living != null && (this.living.hasEffect(RLEffects.LAVA_WALKING))) cir.setReturnValue(true);
         }
     }
 
     @Inject(at = @At("HEAD"), method = "heal", cancellable = true)
     public void runiclib$heal(float amount, CallbackInfo ci) {
-        if (living.hasEffect(RLMobEffects.BLEEDING)) {
+        if (living.hasEffect(RLEffects.BLEEDING)) {
             ci.cancel();
         }
     }
@@ -90,26 +90,26 @@ public abstract class LivingEntityEffectsMixin {
     @Inject(at = @At("HEAD"), method = "hurt", cancellable = true)
     public void runiclib$hurt(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) { //TODO: open up to grants_fire_immunity effect tag?
         Entity attacker = source.getEntity();
-        if (source.is(DamageTypeTags.IS_FIRE) && (living.hasEffect(RLMobEffects.PYROMANIAC) || living.hasEffect(RLMobEffects.TRAIL_BLAZING))) {
+        if (source.is(DamageTypeTags.IS_FIRE) && (living.hasEffect(RLEffects.PYROMANIAC) || living.hasEffect(RLEffects.TRAIL_BLAZING))) {
             cir.setReturnValue(false);
         }
 
-        if (living.hasEffect(RLMobEffects.BURNING_THORNS)) {
-            if (attacker != null) attacker.setRemainingFireTicks(100 + (getEffect(RLMobEffects.BURNING_THORNS).getAmplifier()));
+        if (living.hasEffect(RLEffects.BURNING_THORNS)) {
+            if (attacker != null) attacker.setRemainingFireTicks(100 + (getEffect(RLEffects.BURNING_THORNS).getAmplifier()));
         }
 
-        if (living.hasEffect(RLMobEffects.RETALIATION)) {
+        if (living.hasEffect(RLEffects.RETALIATION)) {
             if (attacker != null) {
                 DamageSource damagesource = new DamageSource(attacker.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(RLDamageTypes.RETALIATION));
-                attacker.hurt(damagesource, 1.0F + (getEffect(RLMobEffects.RETALIATION).getAmplifier() + 1));
+                attacker.hurt(damagesource, 1.0F + (getEffect(RLEffects.RETALIATION).getAmplifier() + 1));
             }
         }
     }
 
     @ModifyVariable(at = @At("HEAD"), method = "hurt", argsOnly = true)
     public float shatterSpleen(float amount) {
-        if (living.hasEffect(RLMobEffects.SHATTERSPLEEN)) {
-            return amount + amount * (0.5F * living.getEffect(RLMobEffects.SHATTERSPLEEN).getAmplifier() + 0.5F);
+        if (living.hasEffect(RLEffects.SHATTERSPLEEN)) {
+            return amount + amount * (0.5F * living.getEffect(RLEffects.SHATTERSPLEEN).getAmplifier() + 0.5F);
         }
         return amount;
     }

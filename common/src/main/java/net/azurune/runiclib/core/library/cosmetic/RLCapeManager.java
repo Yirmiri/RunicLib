@@ -325,6 +325,8 @@ public class RLCapeManager {
     }
 
     public static ResourceLocation fetchCape(UUID uuid) {
+        if (!SELECTED.containsKey(uuid)) return null;
+
         int id = getAssociatedOrdinal(uuid);
         if (id < 0 || id >= CAPES.size()) return null;
 

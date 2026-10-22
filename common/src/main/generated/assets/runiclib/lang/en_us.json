@@ -73,7 +73,7 @@
   "runiclib.cape.shiny_pearl": "Shiny Pearl",
   "runiclib.cape.snom": "Snom",
   "runiclib.cape.unicolor": "Unicolor",
-  "runiclib.cape.vanilla": "Vanilla Cape",
+  "runiclib.cape.vanilla": "OFF",
   "runiclib.cape.wrathful": "Wrathful",
   "runiclib.commands.cool.success": "%s has been extinguished and cooled down",
   "runiclib.commands.dyegive.no_suffix": "No items found with that suffix",

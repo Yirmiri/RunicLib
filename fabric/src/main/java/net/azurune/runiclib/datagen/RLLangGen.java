@@ -16,7 +16,7 @@ public class RLLangGen extends FabricLanguageProvider {
     public void generateTranslations(HolderLookup.Provider provider, FabricLanguageProvider.TranslationBuilder build) {
         //MISC
         build.add("runiclib.tooltip.cape_button", "RunicLib Cape: %s");
-        build.add("runiclib.cape.vanilla", "Vanilla Cape");
+        build.add("runiclib.cape.vanilla", "OFF");
         build.add("runiclib.cape.azurune", "AZURUNE");
         build.add("runiclib.cape.evil_eye", "Evil Eye");
         build.add("runiclib.cape.pumpkin_queen", "Pumpkin Queen");

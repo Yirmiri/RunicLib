@@ -12,11 +12,10 @@ import org.jetbrains.annotations.ApiStatus;
 import java.util.List;
 
 /**
- * This effect class will be removed for versions of this mod on Minecraft version 1.22+, use {@link net.azurune.runiclib.common.effect.AOEEffect}
- * that of which grants developers a lot more control over their effects
+ * Use {@link net.azurune.runiclib.common.effect.AOEEffect} that of which grants developers a lot more control over their effects
  */
-@Deprecated(since = "RL 4.2.2", forRemoval = true)
-@ApiStatus.ScheduledForRemoval(inVersion = "1.22")
+@Deprecated(since = "RL-4.2.2", forRemoval = true)
+@ApiStatus.ScheduledForRemoval(inVersion = "1.21.2")
 public class PerceptionEffect extends PublicMobEffect {
     public PerceptionEffect(MobEffectCategory category, int color) {
         super(category, color);

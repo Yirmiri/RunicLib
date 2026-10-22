@@ -39,7 +39,7 @@ public class RLLangGen extends FabricLanguageProvider {
         build.add("runiclib.cape.rebellious", "Rebellious");
         build.add("runiclib.cape.shiny_pearl", "Shiny Pearl");
 
-        //BENEFICIAL EFFECTS
+        //EFFECTS
         build.add(RLEffects.WATER_WALKING.value(), "Water Walking");
         build.add(RLEffects.LAVA_WALKING.value(), "Lava Walking");
         build.add(RLEffects.TRAIL_BLAZING.value(), "Trail Blazing");

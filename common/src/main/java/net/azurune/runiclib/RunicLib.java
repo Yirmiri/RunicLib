@@ -14,8 +14,8 @@ public class RunicLib {
     public static RunicLibConfig CONFIG;
 
     public static void init() {
-        Runiconfig.registerConfig(MOD_ID, RunicLibConfig.class, RunicLibConfig::new);
-        CONFIG = new RunicLibConfig();
+        Runiconfig.registerConfig(MOD_ID, RunicLibConfig::new);
+        CONFIG = Runiconfig.getConfig(MOD_ID);
 
         RLEffects.loadMobEffects();
         RLAttributes.loadAttributes();
@@ -30,9 +30,29 @@ public class RunicLib {
     public static ResourceLocation customid(String modid, String id) {
         return ResourceLocation.fromNamespaceAndPath(modid, id);
     }
-
-    //todo Block Family Gen
-    //todo Conditionally loaded recipes (rewrite)
-    //todo Random death message thing
-    //todo rewrite config to include screen, fix load crash, and introduce comments
 }
+
+//todo backport/move changes
+//backport capes
+//backport effect changes
+//port shovel/hoe tool actions
+//vector network stuff
+//backport attributes but rework to be better and maybe port some aurynium ones (use my aurynium lifesteal for example)
+
+//todo - @artyriain
+//mod loaded condition for jsons
+
+//1.21.1 porting @artyrian
+//port error suppressor
+//port iTickingItem
+
+//todo - required for new fluid
+//fluid registry
+//dripstone conversion
+//liquid conversion
+
+//todo - crazy extras
+//runic event system(?), hopefully unify many loader things
+//unify mod loader loot modifiers
+//unify mod loader biome modifiers
+//shader thing similar to nexus (figure out smthing cuz last time i did this it crashed cuz nexus' is quite greedy)

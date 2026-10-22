@@ -36,7 +36,7 @@ public class RLCommonCode {
     }
 
     public static void commands(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext ctx) {
-        if (RunicLib.CONFIG.getRunicLibCommands()) {
+        if (RunicLib.CONFIG.runicLibCommands.getValue()) {
             HungerCommand.register(dispatcher);
             SaturationCommand.register(dispatcher);
             SetNameCommand.register(dispatcher);

@@ -10,12 +10,12 @@ import java.util.*;
  * The manager for player capes, mainly on the server-side. Syncs capes (Client to and from Server).
  *
  * <p>Mainly assures that people who don't have cape access can't use it.
- * @author Yirmiri, Artyrian, Hecco
+ * @author Yirmiri & Artyrian
  */
 public class RLCapeManager {
     public static final Component OFF_CAPE = Component.translatable("runiclib.cape.vanilla");
     public static final Map<String, UUID> UUIDS = Map.ofEntries(
-            //NEOFORGE DEV ACCOUNT
+            //DEV
             Map.entry("Dev", UUID.fromString("380df991-f603-344c-a090-369bad2a924a")),
 
             //THE AZURUNE GANG
@@ -51,11 +51,11 @@ public class RLCapeManager {
 
     private static boolean INITED = false;
 
-    public static void initialize() {
+    public static void load() {
         if (INITED) throw new IllegalArgumentException("RLCapeManager was already initialized");
         INITED = true;
 
-        // Azurune
+        //Azurune
         CAPES.add(new RLCape(
                 "azurune",
                 List.of(
@@ -64,7 +64,7 @@ public class RLCapeManager {
                         "amirasana"
                 )
         ));
-        // Evil Eye
+        //Evil Eye
         CAPES.add(new RLCape(
                 "evil_eye",
                 List.of(
@@ -73,7 +73,7 @@ public class RLCapeManager {
                         "redeyevain"
                 )
         ));
-        // Pumpkin Queen
+        //Pumpkin Queen
         CAPES.add(new RLCape(
                 "pumpkin_queen",
                 List.of(
@@ -82,7 +82,7 @@ public class RLCapeManager {
                         "QueenSilverBlue"
                 )
         ));
-        // Sad Cloud
+        //Sad Cloud
         CAPES.add(new RLCape(
                 "sad_cloud",
                 List.of(
@@ -91,7 +91,7 @@ public class RLCapeManager {
                         "aCryingCloud"
                 )
         ));
-        // Wrathful
+        //Wrathful
         CAPES.add(new RLCape(
                 "wrathful",
                 List.of(
@@ -100,7 +100,7 @@ public class RLCapeManager {
                         "tortulss"
                 )
         ));
-        // Bug
+        //Bug
         CAPES.add(new RLCape(
                 "bug",
                 List.of(
@@ -109,7 +109,7 @@ public class RLCapeManager {
                         "Slicraw"
                 )
         ));
-        // Axolotl
+        //Axolotl
         CAPES.add(new RLCape(
                 "axolotl",
                 List.of(
@@ -118,7 +118,7 @@ public class RLCapeManager {
                         "TheHecco"
                 )
         ));
-        // Hyper
+        //Hyper
         CAPES.add(new RLCape(
                 "hyper",
                 List.of(
@@ -127,7 +127,7 @@ public class RLCapeManager {
                         "_Artyrian"
                 )
         ));
-        // Robor
+        //Robor
         CAPES.add(new RLCape(
                 "robor",
                 List.of(
@@ -136,7 +136,7 @@ public class RLCapeManager {
                         "arid_lizzy"
                 )
         ));
-        // Rat
+        //Rat
         CAPES.add(new RLCape(
                 "rat",
                 List.of(
@@ -145,7 +145,7 @@ public class RLCapeManager {
                         "SirPancakess"
                 )
         ));
-        // Putrid
+        //Putrid
         CAPES.add(new RLCape(
                 "putrid",
                 List.of(
@@ -154,7 +154,7 @@ public class RLCapeManager {
                         "Betwixer"
                 )
         ));
-        // Snom
+        //Snom
         CAPES.add(new RLCape(
                 "snom",
                 List.of(
@@ -163,7 +163,7 @@ public class RLCapeManager {
                         "DRiSFiSH"
                 )
         ));
-        // Lightning
+        //Lightning
         CAPES.add(new RLCape(
                 "lightning",
                 List.of(
@@ -172,7 +172,7 @@ public class RLCapeManager {
                         "ZeusIGN"
                 )
         ));
-        // Rebellious
+        //Rebellious
         CAPES.add(new RLCape(
                 "rebellious",
                 List.of(
@@ -181,7 +181,7 @@ public class RLCapeManager {
                         "CreekWanderer"
                 )
         ));
-        // Unicolor
+        //Unicolor
         CAPES.add(new RLCape(
                 "unicolor",
                 List.of(
@@ -190,7 +190,7 @@ public class RLCapeManager {
                         "Diemond_Player"
                 )
         ));
-        // Jinxed
+        //Jinxed
         CAPES.add(new RLCape(
                 "jinxed",
                 List.of(
@@ -199,7 +199,7 @@ public class RLCapeManager {
                         "KekeCreations"
                 )
         ));
-        // Beetroot
+        //Beetroot
         CAPES.add(new RLCape(
                 "beetroot",
                 List.of(
@@ -208,7 +208,7 @@ public class RLCapeManager {
                         "Stellari_"
                 )
         ));
-        // Hex
+        //Hex
         CAPES.add(new RLCape(
                 "hex",
                 List.of(
@@ -217,7 +217,7 @@ public class RLCapeManager {
                         "BackupCup"
                 )
         ));
-        // Accursed
+        //Accursed
         CAPES.add(new RLCape(
                 "accursed",
                 List.of(
@@ -226,7 +226,7 @@ public class RLCapeManager {
                         "Kolos69"
                 )
         ));
-        // Fudge Sundae
+        //Fudge Sundae
         CAPES.add(new RLCape(
                 "fudge_sundae",
                 List.of(
@@ -235,7 +235,7 @@ public class RLCapeManager {
                         "Smillyblade1"
                 )
         ));
-        // Shiny Pearl
+        //Shiny Pearl
         CAPES.add(new RLCape(
                 "shiny_pearl",
                 List.of(
@@ -290,6 +290,7 @@ public class RLCapeManager {
         }
         return null;
     }
+
     public static Pair<String, Component> getNextCapeNotInGame(String id, UUID uuid) {
         int maxSize = CAPES.size();
 
@@ -298,8 +299,7 @@ public class RLCapeManager {
 
         RLCape pointer;
         int pntrID = -1;
-        for (int i = 0; i < maxSize; i++)
-        {
+        for (int i = 0; i < maxSize; i++) {
             pointer = getAssociatedCape(i);
 
             if (pntrID > -1 || id.isEmpty()) {
@@ -313,7 +313,6 @@ public class RLCapeManager {
                 if (pointer.getCapeName().equals(id)) pntrID = i;
             }
         }
-
         return Pair.of(idname, cmpnt);
     }
 
@@ -379,7 +378,6 @@ public class RLCapeManager {
                 break;
             }
         }
-
         return ret;
     }
 

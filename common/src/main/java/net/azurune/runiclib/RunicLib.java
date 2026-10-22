@@ -17,10 +17,9 @@ public class RunicLib {
         Runiconfig.registerConfig(MOD_ID, RunicLibConfig::new);
         CONFIG = Runiconfig.getConfig(MOD_ID);
 
-        RLEffects.loadMobEffects();
-        RLAttributes.loadAttributes();
-
-        RLCapeManager.initialize();
+        RLEffects.load();
+        RLAttributes.load();
+        RLCapeManager.load();
     }
 
     public static ResourceLocation modid(String id) {

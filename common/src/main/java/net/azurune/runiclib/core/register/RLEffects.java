@@ -48,6 +48,6 @@ public class RLEffects {
         return RLServices.REGISTRY.registerForHolder(BuiltInRegistries.MOB_EFFECT, RunicLib.MOD_ID, id, effect);
     }
 
-    public static void loadMobEffects() {
+    public static void load() {
     }
 }

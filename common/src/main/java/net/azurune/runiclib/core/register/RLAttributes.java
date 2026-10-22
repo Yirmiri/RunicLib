@@ -25,6 +25,6 @@ public class RLAttributes {
                 new RangedAttribute("runiclib.generic." + id, base, min, max).setSyncable(true));
     }
 
-    public static void loadAttributes() {
+    public static void load() {
     }
 }

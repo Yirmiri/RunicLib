@@ -19,11 +19,6 @@ public class RLAttributes {
     public static final Holder<Attribute> BURNING_RETALIATION_LENGTH = register("burning_retaliation_length", 0.0, 0, 1024.0);
     public static final Holder<Attribute> CRITICAL_STRIKE_CHANCE = register("critical_strike_chance", 0.0, 0, 100.0);
     public static final Holder<Attribute> CRITICAL_STRIKE_MULTIPLIER = register("critical_strike_multiplier", 0.0, 0, 100.0);
-//    public static final Holder<Attribute> ELEMENTAL_RESISTANCE = register("elemental_resistance", 0.0, 0, 100.0);
-//    public static final Holder<Attribute> BLAST_RESISTANCE = register("blast_resistance", 0.0, 0, 100.0);
-//    public static final Holder<Attribute> MAGIC_RESISTANCE = register("magic_resistance", 0.0, 0, 100.0);
-//    public static final Holder<Attribute> PHYSICAL_RESISTANCE = register("physical_resistance", 0.0, 0, 100.0);
-    //public static final Holder<Attribute> ADDITIONAL_JUMPS = register("additional_jumps", 0.0, 0, 100.0);
 
     private static Holder<Attribute> register(String id, double base, double min, double max) {
         return RLServices.REGISTRY.registerForHolder(BuiltInRegistries.ATTRIBUTE, RunicLib.MOD_ID, "generic." + id,

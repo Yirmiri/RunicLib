@@ -41,11 +41,7 @@ public class RLCapeClientManager {
             return;
         }
 
-        boolean loaded = load();
-        if (!loaded) {
-            CAPE_ID = RLCapeManager.getFirstApplicableCape(uid);
-            save();
-        }
+        load();
     }
 
     /////////////////////////////////////////////////////////////

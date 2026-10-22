@@ -2,7 +2,10 @@ package net.azurune.runiclib.core.mixin.client;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import net.azurune.runiclib.core.library.misc.RLCapeManager;
+import com.mojang.datafixers.util.Pair;
+import net.azurune.runiclib.core.library.cosmetic.RLCapeClientManager;
+import net.azurune.runiclib.core.library.cosmetic.RLCapeManager;
+import net.azurune.runiclib.core.library.network.payload.SetCapePayload;
 import net.azurune.runiclib.core.platform.RLServices;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Options;
@@ -28,19 +31,34 @@ public abstract class SkinCustomizationScreenMixin extends OptionsSubScreen {
     @WrapOperation(method = "addOptions", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/OptionsList;addSmall(Ljava/util/List;)V"))
     private void runiclib$addOptions(OptionsList instance, List<AbstractWidget> options, Operation<Void> original) {
         Minecraft minecraft = Minecraft.getInstance();
-        if (minecraft.player != null) {
-            UUID uuid = minecraft.player.getUUID();
+        UUID uuid = minecraft.getGameProfile().getId();
+        if (uuid != null && RLCapeClientManager.isCapeWorthy())
+        {
+            String capeid = RLCapeClientManager.capeID();
+            Component comp = (capeid.isEmpty()) ? RLCapeManager.OFF_CAPE : Component.translatable(RLCapeManager.getAssociatedCape(capeid).getComponentID());
 
-            if (!RLCapeManager.getCapes(uuid).isEmpty()) {
-                Button button = Button.builder(
-                        Component.translatable("runiclib.tooltip.cape_button", RLCapeManager.getSelectedName(uuid)),
-                        button1 -> {
-                            RLServices.NETWORK.sendSelectedCape(RLCapeManager.next(uuid));
-                            button1.setMessage(Component.translatable("runiclib.tooltip.cape_button", RLCapeManager.getSelectedName(uuid)));
+            Button button = Button.builder(
+                    Component.translatable("runiclib.tooltip.cape_button", comp),
+                    candidate -> {
+                        String toSet = "";
+                        Component name;
+
+                        if (minecraft.player != null && minecraft.getConnection() != null) {
+                            toSet = RLCapeManager.next(uuid);
+                            name = RLCapeManager.getSelectedName(uuid);
+                            RLServices.NETWORK.sendToServer(new SetCapePayload(toSet));
                         }
-                ).build();
-                options.add(button);
-            }
+                        else {
+                            Pair<String, Component> pair = RLCapeManager.getNextCapeNotInGame(RLCapeClientManager.capeID(), uuid);
+                            toSet = pair.getFirst();
+                            name = pair.getSecond();
+                        }
+
+                        candidate.setMessage(Component.translatable("runiclib.tooltip.cape_button", name));
+                        RLCapeClientManager.setCape(toSet);
+                    }
+            ).build();
+            options.add(button);
         }
         original.call(instance, options);
     }

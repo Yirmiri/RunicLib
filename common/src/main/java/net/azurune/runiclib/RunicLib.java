@@ -1,5 +1,6 @@
 package net.azurune.runiclib;
 
+import net.azurune.runiclib.core.library.cosmetic.RLCapeManager;
 import net.azurune.runiclib.core.library.runiconfig.Runiconfig;
 import net.azurune.runiclib.core.register.RLAttributes;
 import net.azurune.runiclib.core.register.RLMobEffects;
@@ -18,6 +19,8 @@ public class RunicLib {
 
         RLMobEffects.loadMobEffects();
         RLAttributes.loadAttributes();
+
+        RLCapeManager.initialize();
     }
 
     public static ResourceLocation modid(String id) {

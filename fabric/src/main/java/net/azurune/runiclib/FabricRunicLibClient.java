@@ -1,8 +1,10 @@
 package net.azurune.runiclib;
 
-import net.azurune.runiclib.core.library.misc.RLCapeManager;
-import net.azurune.runiclib.library.cape.SetCapePacket;
-import net.azurune.runiclib.library.cape.SyncCapePacket;
+import net.azurune.runiclib.core.library.commons.RLClientCommonCode;
+import net.azurune.runiclib.core.library.cosmetic.RLCapeClientManager;
+import net.azurune.runiclib.core.library.network.RLS2CPayloads;
+import net.azurune.runiclib.core.library.network.payload.ClearCapePayload;
+import net.azurune.runiclib.core.library.network.payload.SyncCapePayload;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -10,11 +12,16 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 public class FabricRunicLibClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
-        ClientPlayNetworking.registerGlobalReceiver(SyncCapePacket.TYPE, SyncCapePacket::handle);
+        RLCapeClientManager.initialize();
 
-        ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> client.execute(() -> {
-            if (client.player == null) return;
-            ClientPlayNetworking.send(new SetCapePacket(RLCapeManager.getSelected(client.player.getUUID())));
-        }));
+        // Client receivers
+        ClientPlayNetworking.registerGlobalReceiver(SyncCapePayload.TYPE, (payload, context) ->
+                RLS2CPayloads.syncCape(payload));
+        ClientPlayNetworking.registerGlobalReceiver(ClearCapePayload.TYPE, (payload, context) ->
+                RLS2CPayloads.clearCape(payload));
+
+        // Client events
+        ClientPlayConnectionEvents.JOIN.register((handler, sender, client) ->
+                RLClientCommonCode.onJoinServer(handler, client));
     }
 }

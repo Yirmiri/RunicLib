@@ -1,15 +1,23 @@
 package net.azurune.runiclib;
 
-import net.azurune.runiclib.common.command.*;
+import net.azurune.runiclib.core.library.commons.RLCommonCode;
+import net.azurune.runiclib.core.library.cosmetic.RLCapeClientManager;
+import net.azurune.runiclib.core.library.network.RLC2SPayloads;
+import net.azurune.runiclib.core.library.network.RLS2CPayloads;
+import net.azurune.runiclib.core.library.network.payload.ClearCapePayload;
+import net.azurune.runiclib.core.library.network.payload.SetCapePayload;
+import net.azurune.runiclib.core.library.network.payload.SyncCapePayload;
 import net.azurune.runiclib.core.register.RLAttributes;
-import net.azurune.runiclib.library.cape.CapePayloadHandler;
+import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
+import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 
 @Mod(RunicLib.MOD_ID)
 public class NeoForgeRunicLib {
@@ -19,25 +27,26 @@ public class NeoForgeRunicLib {
 
         eventBus.addListener(this::registerDefaultAttributes);
         eventBus.addListener(this::registerPayloads);
+        eventBus.addListener(this::onClientSetup);
 
         NeoForge.EVENT_BUS.addListener(this::registerCommands);
     }
 
     @SubscribeEvent
-    public void registerCommands(RegisterCommandsEvent event) {
-        if (RunicLib.CONFIG.getRLCommandsEnabled()) {
-            HungerCommand.register(event.getDispatcher());
-            SaturationCommand.register(event.getDispatcher());
-            SetNameCommand.register(event.getDispatcher());
-            HealCommand.register(event.getDispatcher());
-            KingmeCommand.register(event.getDispatcher());
-            PurifyCommand.register(event.getDispatcher());
-        }
-    }
+    public void registerCommands(RegisterCommandsEvent event) { RLCommonCode.commands(event.getDispatcher(), event.getBuildContext()); }
 
     @SubscribeEvent
     public void registerPayloads(RegisterPayloadHandlersEvent event) {
-        CapePayloadHandler.register(event);
+        PayloadRegistrar registrar = event.registrar(RunicLib.MOD_ID).versioned("1");
+
+        // C2S
+        registrar.playToServer(SetCapePayload.TYPE, SetCapePayload.STREAM_CODEC, (payload, ctx) ->
+                ctx.enqueueWork(() -> RLC2SPayloads.setCape((ServerPlayer)ctx.player(), payload)));
+        // S2C
+        registrar.playToClient(SyncCapePayload.TYPE, SyncCapePayload.STREAM_CODEC, (payload, ctx) ->
+                ctx.enqueueWork(() -> RLS2CPayloads.syncCape(payload)));
+        registrar.playToClient(ClearCapePayload.TYPE, ClearCapePayload.STREAM_CODEC, (payload, ctx) ->
+                ctx.enqueueWork(() -> RLS2CPayloads.clearCape(payload)));
     }
 
     @SubscribeEvent
@@ -59,5 +68,9 @@ public class NeoForgeRunicLib {
 //            event.add(type, RLAttributes.MAGIC_RESISTANCE, 0);
 //            event.add(type, RLAttributes.PHYSICAL_RESISTANCE, 0);
         });
+    }
+
+    private void onClientSetup(final FMLClientSetupEvent event) {
+        RLCapeClientManager.initialize();
     }
 }

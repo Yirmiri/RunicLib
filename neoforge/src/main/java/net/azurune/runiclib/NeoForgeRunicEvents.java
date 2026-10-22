@@ -1,18 +1,14 @@
 package net.azurune.runiclib;
 
-import net.azurune.runiclib.core.library.misc.RLCapeManager;
+import net.azurune.runiclib.core.library.commons.RLCommonCode;
 import net.azurune.runiclib.core.library.misc.RLTrade;
 import net.azurune.runiclib.core.platform.NeoForgeRLRegistryHelper;
-import net.azurune.runiclib.library.cape.CapePayloadHandler;
-import net.azurune.runiclib.library.cape.SyncCapePacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 import net.neoforged.neoforge.event.village.WandererTradesEvent;
-import net.neoforged.neoforge.network.PacketDistributor;
-import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 
 import java.util.function.Supplier;
 
@@ -20,15 +16,12 @@ import java.util.function.Supplier;
 public class NeoForgeRunicEvents {
     @SubscribeEvent
     public static void onJoinEvent(PlayerEvent.PlayerLoggedInEvent event) {
-        if (!(event.getEntity() instanceof ServerPlayer player)) return;
+        if (event.getEntity() instanceof ServerPlayer player) RLCommonCode.serverLogin(player);
+    }
 
-        for (ServerPlayer other : player.serverLevel().players()) {
-            PacketDistributor.sendToPlayer(player, new SyncCapePacket(other.getUUID(), RLCapeManager.getSelected(other.getUUID())));
-
-            if (other != player) {
-                PacketDistributor.sendToPlayer(other, new SyncCapePacket(player.getUUID(), RLCapeManager.getSelected(player.getUUID())));
-            }
-        }
+    @SubscribeEvent
+    public static void onLeaveEvent(PlayerEvent.PlayerLoggedOutEvent event) {
+        if (event.getEntity() instanceof ServerPlayer player) RLCommonCode.serverLogout(player);
     }
 
     @SubscribeEvent

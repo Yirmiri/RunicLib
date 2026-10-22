@@ -1,7 +1,7 @@
 package net.azurune.runiclib.core.mixin.client;
 
 import com.mojang.authlib.GameProfile;
-import net.azurune.runiclib.core.library.misc.RLCapeManager;
+import net.azurune.runiclib.core.library.cosmetic.RLCapeManager;
 import net.minecraft.client.resources.PlayerSkin;
 import net.minecraft.client.multiplayer.PlayerInfo;
 import net.minecraft.resources.ResourceLocation;
@@ -21,7 +21,7 @@ public abstract class PlayerInfoMixin {
 
     @Inject(method = "getSkin", at = @At("HEAD"), cancellable = true)
     private void runiclib$getSkin(CallbackInfoReturnable<PlayerSkin> cir) {
-        ResourceLocation texture = RLCapeManager.getCape(profile.getId());
+        ResourceLocation texture = RLCapeManager.fetchCape(profile.getId());
         if (texture == null) return;
 
         PlayerSkin skin = skinLookup.get();

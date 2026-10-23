@@ -16,7 +16,7 @@ import java.util.UUID;
 /**
  * The client-side manager for capes. Communicates with the server and attempts to tell it what cape to display on this user.
  *
- * @author Yirmiri & Artyrian
+ * @author Yirmiri and Artyrian
  */
 public class RLCapeClientManager {
     private static boolean CAPE_WORTHY = true;

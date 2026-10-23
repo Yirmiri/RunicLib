@@ -10,7 +10,7 @@ import java.util.*;
  * The manager for player capes, mainly on the server-side. Syncs capes (Client to and from Server).
  *
  * <p>Mainly assures that people who don't have cape access can't use it.
- * @author Yirmiri & Artyrian
+ * @author Yirmiri and Artyrian
  */
 public class RLCapeManager {
     public static final Component OFF_CAPE = Component.translatable("runiclib.cape.vanilla");

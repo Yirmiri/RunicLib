@@ -55,7 +55,7 @@
   "runiclib.commands.heal.success": "Healed %s health of %s",
   "runiclib.commands.hunger.fail": "Target's hunger could not be changed",
   "runiclib.commands.hunger.success": "Applied %s hunger to %s",
-  "runiclib.commands.kingme.success": "%s has had their Health and Hunger refilled",
+  "runiclib.commands.kingme.success": "%s had their Health, Hunger, and Experience refilled and cleansed of all statuses",
   "runiclib.commands.not_living": "Target is not a living entity",
   "runiclib.commands.not_player": "Target is not a player",
   "runiclib.commands.players": "players",
@@ -70,8 +70,10 @@
   "runiclib.generic.critical_strike_chance": "Critical Strike Chance",
   "runiclib.generic.critical_strike_multiplier": "Critical Strike Multiplier",
   "runiclib.generic.evasion_chance": "Evasion Chance",
+  "runiclib.generic.invulnerability_reduction": "Invulnerability Reduction",
   "runiclib.generic.lifesteal": "Lifesteal",
   "runiclib.generic.retaliation_amount": "Retaliation Amount",
   "runiclib.generic.retaliation_chance": "Retaliation Chance",
+  "runiclib.generic.swimming_speed": "Swimming Speed",
   "runiclib.tooltip.cape_button": "RunicLib Cape: %s"
 }

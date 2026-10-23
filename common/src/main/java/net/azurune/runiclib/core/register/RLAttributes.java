@@ -17,6 +17,7 @@ public class RLAttributes {
     public static final Holder<Attribute> BURNING_RETALIATION_LENGTH = registerRanged("burning_retaliation_length", 20.0, 0, 1024.0);
     public static final Holder<Attribute> CRITICAL_STRIKE_CHANCE = registerPercent("critical_strike_chance", 0.0, 0, 1.0);
     public static final Holder<Attribute> CRITICAL_STRIKE_MULTIPLIER = registerRanged("critical_strike_multiplier", 1.2, 0, 100.0);
+    public static final Holder<Attribute> SWIMMING_SPEED = registerPercent("swimming_speed", 0.0, -1024.0, 1024.0);
 
     private static Holder<Attribute> registerRanged(String id, double base, double min, double max) {
         return RLServices.REGISTRY.registerForHolder(BuiltInRegistries.ATTRIBUTE, RunicLib.MOD_ID, "generic." + id,

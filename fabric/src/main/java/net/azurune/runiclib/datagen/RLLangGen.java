@@ -82,6 +82,7 @@ public class RLLangGen extends FabricLanguageProvider {
         build.add("runiclib.generic.critical_strike_chance", "Critical Strike Chance");
         build.add("runiclib.generic.critical_strike_multiplier", "Critical Strike Multiplier");
         build.add("runiclib.generic.invulnerability_reduction", "Invulnerability Reduction");
+        build.add("runiclib.generic.swimming_speed", "Swimming Speed");
 
         //DAMAGE
         build.add("death.attack.runiclib.retaliation", "%1$s couldn't handle the backlash");

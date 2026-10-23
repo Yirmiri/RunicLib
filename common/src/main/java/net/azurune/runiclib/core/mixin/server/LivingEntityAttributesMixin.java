@@ -8,6 +8,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -16,6 +17,7 @@ import net.minecraft.world.item.Items;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -38,12 +40,21 @@ public abstract class LivingEntityAttributesMixin {
                 .add(RLAttributes.CRITICAL_STRIKE_CHANCE)
                 .add(RLAttributes.CRITICAL_STRIKE_MULTIPLIER)
                 .add(RLAttributes.INVULNERABILITY_REDUCTION)
+                .add(RLAttributes.SWIMMING_SPEED)
 
                 .add(Attributes.LUCK)
         ;
     }
 
-    @Inject(at = @At("HEAD"), method = "hurt")
+    @ModifyArg(method = "travel", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;moveRelative(FLnet/minecraft/world/phys/Vec3;)V", ordinal = 0))
+    private float runiclib$travel(float speed) {
+        if (living.getAttributes().hasAttribute(RLAttributes.SWIMMING_SPEED)) {
+            speed += (float) living.getAttributeValue(RLAttributes.SWIMMING_SPEED);
+        }
+        return speed;
+    }
+
+    @Inject(at = @At("HEAD"), method = "hurt", cancellable = true)
     public void runiclib$hurt(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         if (living.getAttributes().hasAttribute(RLAttributes.EVASION_CHANCE)) {
             double evasionChance = living.getAttributeValue(RLAttributes.EVASION_CHANCE);

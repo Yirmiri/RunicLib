@@ -11,6 +11,8 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Items;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -35,6 +37,7 @@ public abstract class LivingEntityAttributesMixin {
                 .add(RLAttributes.BURNING_RETALIATION_LENGTH)
                 .add(RLAttributes.CRITICAL_STRIKE_CHANCE)
                 .add(RLAttributes.CRITICAL_STRIKE_MULTIPLIER)
+                .add(RLAttributes.INVULNERABILITY_REDUCTION)
 
                 .add(Attributes.LUCK)
         ;
@@ -51,6 +54,10 @@ public abstract class LivingEntityAttributesMixin {
                     cir.setReturnValue(false);
                 }
             }
+        }
+
+        if (source.getEntity() instanceof Player attackingPlayer) {
+            living.invulnerableTime = (int) (living.invulnerableTime * (1.0 - attackingPlayer.getAttributeValue(RLAttributes.INVULNERABILITY_REDUCTION)));
         }
     }
 

@@ -10,7 +10,7 @@ import net.minecraft.world.entity.ai.attributes.RangedAttribute;
 public class RLAttributes {
     public static final Holder<Attribute> LIFESTEAL = registerPercent("lifesteal", 0.0, 0.0, 1.0);
     public static final Holder<Attribute> EVASION_CHANCE = registerPercent("evasion_chance", 0.0, 0, 1.0);
-
+    public static final Holder<Attribute> INVULNERABILITY_REDUCTION = registerRanged("invulnerability_reduction", 0.0, -1024.0, 1024.0);
     public static final Holder<Attribute> RETALIATION_CHANCE = registerPercent("retaliation_chance", 0.0, 0, 1.0);
     public static final Holder<Attribute> RETALIATION_AMOUNT = registerRanged("retaliation_amount", 1.0, 0, 100.0);
     public static final Holder<Attribute> BURNING_RETALIATION_CHANCE = registerPercent("burning_retaliation_chance", 0.0, 0, 1.0);

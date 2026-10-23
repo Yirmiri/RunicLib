@@ -68,7 +68,7 @@ public class RLLangGen extends FabricLanguageProvider {
         build.add("runiclib.commands.players", "players");
         build.add("runiclib.commands.entities", "entities");
         build.add("runiclib.commands.dyegive.no_suffix", "No items found with that suffix");
-        build.add("runiclib.commands.kingme.success", "%s has had their Health and Hunger refilled");
+        build.add("runiclib.commands.kingme.success", "%s had their Health, Hunger, and Experience refilled and cleansed of all statuses");
         build.add("runiclib.commands.cool.success", "%s has been extinguished and cooled down");
         build.add("runiclib.commands.purify.success", "%s has been cleansed of all statuses");
 
@@ -81,6 +81,7 @@ public class RLLangGen extends FabricLanguageProvider {
         build.add("runiclib.generic.burning_retaliation_length", "Burning Retaliation Length");
         build.add("runiclib.generic.critical_strike_chance", "Critical Strike Chance");
         build.add("runiclib.generic.critical_strike_multiplier", "Critical Strike Multiplier");
+        build.add("runiclib.generic.invulnerability_reduction", "Invulnerability Reduction");
 
         //DAMAGE
         build.add("death.attack.runiclib.retaliation", "%1$s couldn't handle the backlash");

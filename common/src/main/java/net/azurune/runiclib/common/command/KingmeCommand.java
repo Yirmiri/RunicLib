@@ -25,6 +25,10 @@ public class KingmeCommand {
             player.setHealth(player.getMaxHealth());
             player.getFoodData().setFoodLevel(20);
             player.getFoodData().setSaturation(5.0F);
+            player.setExperienceLevels(50);
+            player.extinguishFire();
+            player.setTicksFrozen(0);
+            player.removeAllEffects();
 
             ctx.getSource().sendSuccess(() -> Component.translatable("runiclib.commands.kingme.success", player.getDisplayName()), true);
             return 1;

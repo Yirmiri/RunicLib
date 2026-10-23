@@ -1,6 +1,7 @@
 package net.azurune.runiclib.core.register;
 
 import net.azurune.runiclib.RunicLib;
+import net.azurune.runiclib.common.attribute.PercentageRangedAttribute;
 import net.azurune.runiclib.core.platform.RLServices;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -26,7 +27,7 @@ public class RLAttributes {
 
     private static Holder<Attribute> registerPercent(String id, double base, double min, double max) {
         return RLServices.REGISTRY.registerForHolder(BuiltInRegistries.ATTRIBUTE, RunicLib.MOD_ID, "generic." + id,
-                new RangedAttribute("runiclib.generic." + id, base, min, max).setSyncable(true));
+                new PercentageRangedAttribute("runiclib.generic." + id, base, min, max).setSyncable(true));
     }
 
     public static void load() {

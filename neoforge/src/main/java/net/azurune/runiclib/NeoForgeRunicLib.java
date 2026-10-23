@@ -52,21 +52,17 @@ public class NeoForgeRunicLib {
     @SubscribeEvent
     public void registerDefaultAttributes(EntityAttributeModificationEvent event) {
         event.getTypes().forEach(type -> {
-            event.add(type, RLAttributes.DODGE_CHANCE, 0);
-            event.add(type, RLAttributes.LIFESTEAL_CHANCE, 0);
-            event.add(type, RLAttributes.LIFESTEAL_HEAL_AMOUNT, 0);
-            event.add(type, RLAttributes.RETALIATION_AMOUNT, 0);
-            event.add(type, RLAttributes.RETALIATION_CHANCE, 0);
-            event.add(type, RLAttributes.BURNING_RETALIATION_CHANCE, 0);
-            event.add(type, RLAttributes.BURNING_RETALIATION_LENGTH, 0);
-            event.add(type, RLAttributes.VULNERABILITY_CHANCE, 0);
-            event.add(type, RLAttributes.VULNERABILITY_MULTIPLIER, 0);
-            event.add(type, RLAttributes.CRITICAL_STRIKE_CHANCE, 0);
-            event.add(type, RLAttributes.CRITICAL_STRIKE_MULTIPLIER, 0);
-//            event.add(type, RLAttributes.BLAST_RESISTANCE, 0);
-//            event.add(type, RLAttributes.ELEMENTAL_RESISTANCE, 0);
-//            event.add(type, RLAttributes.MAGIC_RESISTANCE, 0);
-//            event.add(type, RLAttributes.PHYSICAL_RESISTANCE, 0);
+//            event.add(type, RLAttributes.DODGE_CHANCE, 0);
+//            event.add(type, RLAttributes.LIFESTEAL_CHANCE, 0);
+//            event.add(type, RLAttributes.LIFESTEAL_HEAL_AMOUNT, 0);
+//            event.add(type, RLAttributes.RETALIATION_AMOUNT, 0);
+//            event.add(type, RLAttributes.RETALIATION_CHANCE, 0);
+//            event.add(type, RLAttributes.BURNING_RETALIATION_CHANCE, 0);
+//            event.add(type, RLAttributes.BURNING_RETALIATION_LENGTH, 0);
+//            event.add(type, RLAttributes.VULNERABILITY_CHANCE, 0);
+//            event.add(type, RLAttributes.VULNERABILITY_MULTIPLIER, 0);
+//            event.add(type, RLAttributes.CRITICAL_STRIKE_CHANCE, 0);
+//            event.add(type, RLAttributes.CRITICAL_STRIKE_MULTIPLIER, 0);
         });
     }
 

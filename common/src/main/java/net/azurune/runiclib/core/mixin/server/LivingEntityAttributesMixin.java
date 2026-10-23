@@ -9,6 +9,8 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -22,30 +24,50 @@ public abstract class LivingEntityAttributesMixin {
     LivingEntity living = (LivingEntity) (Object) this;
     private static Random random = new Random();
 
+    @Inject(method = "createLivingAttributes", at = @At("RETURN"))
+    private static void aurynium$createAttributes(CallbackInfoReturnable<AttributeSupplier.Builder> cir) {
+        cir.getReturnValue()
+                .add(RLAttributes.LIFESTEAL)
+                .add(RLAttributes.EVASION_CHANCE)
+                .add(RLAttributes.RETALIATION_AMOUNT)
+                .add(RLAttributes.RETALIATION_CHANCE)
+                .add(RLAttributes.BURNING_RETALIATION_CHANCE)
+                .add(RLAttributes.BURNING_RETALIATION_LENGTH)
+                .add(RLAttributes.CRITICAL_STRIKE_CHANCE)
+                .add(RLAttributes.CRITICAL_STRIKE_MULTIPLIER)
+
+                .add(Attributes.LUCK)
+        ;
+    }
+
     @Inject(at = @At("HEAD"), method = "hurt")
     public void runiclib$hurt(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        if (living.getAttributes().hasAttribute(RLAttributes.DODGE_CHANCE)) {
-            double dodgeChance = living.getAttributeValue(RLAttributes.DODGE_CHANCE);
+        if (living.getAttributes().hasAttribute(RLAttributes.EVASION_CHANCE)) {
+            double evasionChance = living.getAttributeValue(RLAttributes.EVASION_CHANCE);
 
-            if (!source.is(RLTags.DamageTypeTags.BYPASSES_DODGE) && dodgeChance != 0 && living.isAlive() && random.nextDouble(100.0) < dodgeChance) {
-                living.level().playSound(null, living.getX(), living.getY(), living.getZ(), SoundEvents.ARMOR_EQUIP_GENERIC, SoundSource.PLAYERS, 1.0F, 1.0F);
-                cir.setReturnValue(false);
+            if (!source.is(RLTags.DamageTypeTags.BYPASSES_EVASION) && evasionChance != 0 && living.isAlive()) {
+                if (living.getRandom().nextFloat() < living.getAttributeValue(RLAttributes.EVASION_CHANCE) + (living.getAttributeValue(Attributes.LUCK) * 0.02F)) {
+                    living.level().playSound(null, living.getX(), living.getY(), living.getZ(), SoundEvents.ARMOR_EQUIP_GENERIC, SoundSource.PLAYERS, 1.0F, 1.0F);
+                    cir.setReturnValue(false);
+                }
             }
         }
     }
 
-    @ModifyVariable(at = @At("HEAD"), method = "hurt", argsOnly = true)
-    public float runiclib$vulnerability(float amount) {
-        if (living.getAttributes().hasAttribute(RLAttributes.VULNERABILITY_CHANCE) && living.getAttributes().hasAttribute(RLAttributes.VULNERABILITY_MULTIPLIER)) {
-            double vulnerabilityChance = living.getAttributeValue(RLAttributes.VULNERABILITY_CHANCE);
-            float vulnerabilityModifier = (float) living.getAttributeValue(RLAttributes.VULNERABILITY_MULTIPLIER);
+    @Inject(method = "hurt", at = @At("TAIL"))
+    private void aurynium$lifesteal(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+        if (!cir.getReturnValue()) return;
+        if (!(source.getEntity() instanceof LivingEntity attacker)) return;
 
-            if (vulnerabilityChance != 0 && living.isAlive() && random.nextDouble(100.0) < vulnerabilityChance) {
-                return amount + amount * vulnerabilityModifier;
+        double lifesteal = attacker.getAttributeValue(RLAttributes.LIFESTEAL);
+
+        if (lifesteal != 0.0D) {
+            float lifestealAmount = (float) (amount * Math.abs(lifesteal));
+
+            if (lifesteal > 0.0D) {
+                attacker.heal(lifestealAmount);
             }
-            return amount;
         }
-        return amount;
     }
 
     @Inject(at = @At("RETURN"), method = "getDamageAfterMagicAbsorb")
@@ -57,17 +79,21 @@ public abstract class LivingEntityAttributesMixin {
                 double retaliationChance = living.getAttributeValue(RLAttributes.RETALIATION_CHANCE);
                 double retaliationDamageAmount = living.getAttributeValue(RLAttributes.RETALIATION_AMOUNT);
 
-                if (retaliationChance != 0 && random.nextDouble(100.0) < retaliationChance) {
-                    DamageSource damagesource = new DamageSource(entity.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(RLDamageTypes.RETALIATION));
-                    attacker.hurt(damagesource, (float) retaliationDamageAmount);
+                if (retaliationChance != 0) {
+                    if (living.getRandom().nextFloat() < retaliationChance + (living.getAttributeValue(Attributes.LUCK) * 0.02F)) {
+                        DamageSource damagesource = new DamageSource(entity.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(RLDamageTypes.RETALIATION));
+                        attacker.hurt(damagesource, (float) retaliationDamageAmount);
+                    }
                 }
 
 
                 double burningRetaliationChance = living.getAttributeValue(RLAttributes.BURNING_RETALIATION_CHANCE);
                 double burningRetaliationLength = living.getAttributeValue(RLAttributes.BURNING_RETALIATION_LENGTH);
 
-                if (burningRetaliationChance != 0 && random.nextDouble(100.0) < burningRetaliationChance && burningRetaliationLength > attacker.getRemainingFireTicks()) {
-                    attacker.setRemainingFireTicks((int) burningRetaliationLength);
+                if (burningRetaliationChance != 0 && burningRetaliationLength > attacker.getRemainingFireTicks()) {
+                    if (living.getRandom().nextFloat() < burningRetaliationChance + (living.getAttributeValue(Attributes.LUCK) * 0.02F)) {
+                        attacker.setRemainingFireTicks((int) burningRetaliationLength);
+                    }
                 }
             }
         }

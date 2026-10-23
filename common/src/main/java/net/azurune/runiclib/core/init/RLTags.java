@@ -17,7 +17,7 @@ public class RLTags {
     }
 
     public static class DamageTypeTags {
-        public static final TagKey<DamageType> BYPASSES_DODGE = create("bypasses_dodge");
+        public static final TagKey<DamageType> BYPASSES_EVASION = create("bypasses_evasion");
 
         private static TagKey<DamageType> create(String id) {
             return TagKey.create(Registries.DAMAGE_TYPE, RunicLib.modid(id));

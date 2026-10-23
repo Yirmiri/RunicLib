@@ -69,12 +69,9 @@
   "runiclib.generic.burning_retaliation_length": "Burning Retaliation Length",
   "runiclib.generic.critical_strike_chance": "Critical Strike Chance",
   "runiclib.generic.critical_strike_multiplier": "Critical Strike Multiplier",
-  "runiclib.generic.dodge_chance": "Dodge Chance",
-  "runiclib.generic.lifesteal_chance": "Lifesteal Chance",
-  "runiclib.generic.lifesteal_heal_amount": "Lifesteal Heal Amount",
+  "runiclib.generic.evasion_chance": "Evasion Chance",
+  "runiclib.generic.lifesteal": "Lifesteal",
   "runiclib.generic.retaliation_amount": "Retaliation Amount",
   "runiclib.generic.retaliation_chance": "Retaliation Chance",
-  "runiclib.generic.vulnerability_chance": "Vulnerability Chance",
-  "runiclib.generic.vulnerability_multiplier": "Vulnerability Multiplier",
   "runiclib.tooltip.cape_button": "RunicLib Cape: %s"
 }

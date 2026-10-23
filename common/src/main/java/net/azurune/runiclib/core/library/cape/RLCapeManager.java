@@ -49,11 +49,11 @@ public class RLCapeManager {
     private static final List<RLCape> CAPES = new ArrayList<>();
     private static final Map<UUID, Integer> SELECTED = new HashMap<>();
 
-    private static boolean INITED = false;
+    private static boolean INITIALIZED = false;
 
     public static void load() {
-        if (INITED) throw new IllegalArgumentException("RLCapeManager was already initialized");
-        INITED = true;
+        if (INITIALIZED) throw new IllegalArgumentException("RLCapeManager was already initialized");
+        INITIALIZED = true;
 
         //Azurune
         CAPES.add(new RLCape(
@@ -64,180 +64,180 @@ public class RLCapeManager {
                         "amirasana"
                 )
         ));
-        //Evil Eye
+        //redeyevain
         CAPES.add(new RLCape(
-                "evil_eye",
+                "redeyevain",
                 List.of(
                         "Dev",
                         "Yirmiri",
                         "redeyevain"
                 )
         ));
-        //Pumpkin Queen
+        //QueenSilverBlue
         CAPES.add(new RLCape(
-                "pumpkin_queen",
+                "queensilverblue",
                 List.of(
                         "Dev",
                         "Yirmiri",
                         "QueenSilverBlue"
                 )
         ));
-        //Sad Cloud
+        //Cloudy
         CAPES.add(new RLCape(
-                "sad_cloud",
+                "cloudy",
                 List.of(
                         "Dev",
                         "Yirmiri",
                         "aCryingCloud"
                 )
         ));
-        //Wrathful
+        //tortuls
         CAPES.add(new RLCape(
-                "wrathful",
+                "tortuls",
                 List.of(
                         "Dev",
                         "Yirmiri",
                         "tortulss"
                 )
         ));
-        //Bug
+        //Slicraw
         CAPES.add(new RLCape(
-                "bug",
+                "slicraw",
                 List.of(
                         "Dev",
                         "Yirmiri",
                         "Slicraw"
                 )
         ));
-        //Axolotl
+        //Hecco
         CAPES.add(new RLCape(
-                "axolotl",
+                "hecco",
                 List.of(
                         "Dev",
                         "Yirmiri",
                         "TheHecco"
                 )
         ));
-        //Hyper
+        //Artyrian
         CAPES.add(new RLCape(
-                "hyper",
+                "artyrian",
                 List.of(
                         "Dev",
                         "Yirmiri",
                         "_Artyrian"
                 )
         ));
-        //Robor
+        //Arid
         CAPES.add(new RLCape(
-                "robor",
+                "arid",
                 List.of(
                         "Dev",
                         "Yirmiri",
                         "arid_lizzy"
                 )
         ));
-        //Rat
+        //Pancakes
         CAPES.add(new RLCape(
-                "rat",
+                "pancakes",
                 List.of(
                         "Dev",
                         "Yirmiri",
                         "SirPancakess"
                 )
         ));
-        //Putrid
+        //Betwixer
         CAPES.add(new RLCape(
-                "putrid",
+                "betwixer",
                 List.of(
                         "Dev",
                         "Yirmiri",
                         "Betwixer"
                 )
         ));
-        //Snom
+        //drisfish
         CAPES.add(new RLCape(
-                "snom",
+                "drisfish",
                 List.of(
                         "Dev",
                         "Yirmiri",
                         "DRiSFiSH"
                 )
         ));
-        //Lightning
+        //Zeus
         CAPES.add(new RLCape(
-                "lightning",
+                "zeus",
                 List.of(
                         "Dev",
                         "Yirmiri",
                         "ZeusIGN"
                 )
         ));
-        //Rebellious
+        //Creek
         CAPES.add(new RLCape(
-                "rebellious",
+                "creek",
                 List.of(
                         "Dev",
                         "Yirmiri",
                         "CreekWanderer"
                 )
         ));
-        //Unicolor
+        //Diemant
         CAPES.add(new RLCape(
-                "unicolor",
+                "diemant",
                 List.of(
                         "Dev",
                         "Yirmiri",
                         "Diemond_Player"
                 )
         ));
-        //Jinxed
+        //Keke
         CAPES.add(new RLCape(
-                "jinxed",
+                "keke",
                 List.of(
                         "Dev",
                         "Yirmiri",
                         "KekeCreations"
                 )
         ));
-        //Beetroot
+        //Stellari
         CAPES.add(new RLCape(
-                "beetroot",
+                "stellari",
                 List.of(
                         "Dev",
                         "Yirmiri",
                         "Stellari_"
                 )
         ));
-        //Hex
+        //BackupCup
         CAPES.add(new RLCape(
-                "hex",
+                "backupcup",
                 List.of(
                         "Dev",
                         "Yirmiri",
                         "BackupCup"
                 )
         ));
-        //Accursed
+        //Kolos
         CAPES.add(new RLCape(
-                "accursed",
+                "kolos",
                 List.of(
                         "Dev",
                         "Yirmiri",
                         "Kolos69"
                 )
         ));
-        //Fudge Sundae
+        //Smilly
         CAPES.add(new RLCape(
-                "fudge_sundae",
+                "smilly",
                 List.of(
                         "Dev",
                         "Yirmiri",
                         "Smillyblade1"
                 )
         ));
-        //Shiny Pearl
+        //Pearlision
         CAPES.add(new RLCape(
-                "shiny_pearl",
+                "pearlision",
                 List.of(
                         "Dev",
                         "Yirmiri",

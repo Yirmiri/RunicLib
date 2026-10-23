@@ -32,8 +32,7 @@ public abstract class SkinCustomizationScreenMixin extends OptionsSubScreen {
     private void runiclib$addOptions(OptionsList instance, List<AbstractWidget> options, Operation<Void> original) {
         Minecraft minecraft = Minecraft.getInstance();
         UUID uuid = minecraft.getGameProfile().getId();
-        if (uuid != null && RLCapeClientManager.isCapeWorthy())
-        {
+        if (uuid != null && RLCapeClientManager.isCapeWorthy()) {
             String capeid = RLCapeClientManager.capeID();
             Component comp = (capeid.isEmpty()) ? RLCapeManager.OFF_CAPE : Component.translatable(RLCapeManager.getAssociatedCape(capeid).getComponentID());
 

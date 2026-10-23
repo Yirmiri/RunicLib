@@ -46,13 +46,6 @@ public class PlayerMixin {
         }
     }
 
-    @Inject(at = @At("HEAD"), method = "isHurt", cancellable = true)
-    public void runiclib$isHurt(CallbackInfoReturnable<Boolean> cir) {
-        if (player.hasEffect(RLEffects.BLOOD_CLOT)) {
-            cir.setReturnValue(false);
-        }
-    }
-
     @Inject(at = @At("HEAD"), method = "isReducedDebugInfo", cancellable = true)
     public void runiclib$hasReducedDebugInfo(CallbackInfoReturnable<Boolean> cir) {
         if (player.hasEffect(RLEffects.CONFUSION)) {

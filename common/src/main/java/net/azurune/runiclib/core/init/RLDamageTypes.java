@@ -7,7 +7,6 @@ import net.minecraft.world.damagesource.DamageType;
 
 public class RLDamageTypes {
     public static final ResourceKey<DamageType> RETALIATION = register(new DamageType("retaliation", 0));
-    public static final ResourceKey<DamageType> VENOM = register(new DamageType("venom", 0));
     public static final ResourceKey<DamageType> CREATIVE_SHOCK = register(new DamageType("creative_shock", 0));
 
     public static  ResourceKey<DamageType> register(DamageType damageType) {

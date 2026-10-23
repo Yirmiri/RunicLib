@@ -86,31 +86,4 @@ public abstract class LivingEntityEffectsMixin {
             ci.cancel();
         }
     }
-
-    @Inject(at = @At("HEAD"), method = "hurt", cancellable = true)
-    public void runiclib$hurt(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) { //TODO: open up to grants_fire_immunity effect tag?
-        Entity attacker = source.getEntity();
-        if (source.is(DamageTypeTags.IS_FIRE) && (living.hasEffect(RLEffects.PYROMANIAC) || living.hasEffect(RLEffects.TRAIL_BLAZING))) {
-            cir.setReturnValue(false);
-        }
-
-        if (living.hasEffect(RLEffects.BURNING_THORNS)) {
-            if (attacker != null) attacker.setRemainingFireTicks(100 + (getEffect(RLEffects.BURNING_THORNS).getAmplifier()));
-        }
-
-        if (living.hasEffect(RLEffects.RETALIATION)) {
-            if (attacker != null) {
-                DamageSource damagesource = new DamageSource(attacker.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(RLDamageTypes.RETALIATION));
-                attacker.hurt(damagesource, 1.0F + (getEffect(RLEffects.RETALIATION).getAmplifier() + 1));
-            }
-        }
-    }
-
-    @ModifyVariable(at = @At("HEAD"), method = "hurt", argsOnly = true)
-    public float shatterSpleen(float amount) {
-        if (living.hasEffect(RLEffects.SHATTERSPLEEN)) {
-            return amount + amount * (0.5F * living.getEffect(RLEffects.SHATTERSPLEEN).getAmplifier() + 0.5F);
-        }
-        return amount;
-    }
 }

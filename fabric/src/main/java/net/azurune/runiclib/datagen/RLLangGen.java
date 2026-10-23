@@ -75,7 +75,7 @@ public class RLLangGen extends FabricLanguageProvider {
         //ATTRIBUTES
         build.add("runiclib.generic.dodge_chance", "Dodge Chance");
         build.add("runiclib.generic.lifesteal_chance", "Lifesteal Chance");
-        build.add("runiclib.generic.lifesteal_amount", "Lifesteal Amount");
+        build.add("runiclib.generic.lifesteal_heal_amount", "Lifesteal Heal Amount");
         build.add("runiclib.generic.vulnerability_chance", "Vulnerability Chance");
         build.add("runiclib.generic.vulnerability_multiplier", "Vulnerability Multiplier");
         build.add("runiclib.generic.retaliation_chance", "Retaliation Chance");

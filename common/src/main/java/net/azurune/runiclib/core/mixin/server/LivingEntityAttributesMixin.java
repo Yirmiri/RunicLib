@@ -49,7 +49,7 @@ public abstract class LivingEntityAttributesMixin {
     @ModifyArg(method = "travel", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;moveRelative(FLnet/minecraft/world/phys/Vec3;)V", ordinal = 0))
     private float runiclib$travel(float speed) {
         if (living.getAttributes().hasAttribute(RLAttributes.SWIMMING_SPEED)) {
-            speed += (float) living.getAttributeValue(RLAttributes.SWIMMING_SPEED);
+            speed *= 1.0F + (float) living.getAttributeValue(RLAttributes.SWIMMING_SPEED);
         }
         return speed;
     }

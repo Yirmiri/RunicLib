@@ -42,11 +42,6 @@ import java.util.function.UnaryOperator;
 
 public class FabricRLRegistryHelper implements RLRegistryHelper {
 
-//    @Override
-//    public <T> Supplier<T> register(Registry<T> registry, String modid, String id, Supplier<T> supplier) {
-//        return () -> Registry.register(registry, RunicLib.customid(modid, id), supplier.get());
-//    }
-
     @Override
     public <T> Supplier<T> register(Registry<T> registry, String modid, String id, Supplier<T> supplier) {
         T register = Registry.register(registry, RunicLib.customid(modid, id), supplier.get());
@@ -142,18 +137,20 @@ public class FabricRLRegistryHelper implements RLRegistryHelper {
 
     @Override
     public <T extends AbstractContainerMenu> Supplier<MenuType<T>> registerMenu(String modid, String id, MenuSupplier<T> factory) {
-        MenuType<T> registered = Registry.register(BuiltInRegistries.MENU, RunicLib.customid(modid, id), new MenuType<>(factory::create, FeatureFlags.DEFAULT_FLAGS));
-        return () -> registered;
+        MenuType<T> register = Registry.register(BuiltInRegistries.MENU, RunicLib.customid(modid, id), new MenuType<>(factory::create, FeatureFlags.DEFAULT_FLAGS));
+        return () -> register;
     }
 
     @Override
     public <T extends Recipe<?>> Supplier<RecipeType<T>> registerRecipeType(String modid, String id) {
-        return () -> Registry.register(BuiltInRegistries.RECIPE_TYPE, RunicLib.customid(modid, id), new RecipeType<T>() {});
+        RecipeType<T> register = Registry.register(BuiltInRegistries.RECIPE_TYPE, RunicLib.customid(modid, id), new RecipeType<T>() {});
+        return () -> register;
     }
 
     @Override
     public <T extends Recipe<?>> Supplier<RecipeSerializer<T>> registerRecipeSerializer(String modid, String id, RecipeSerializer<T> serializer) {
-        return () -> Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, RunicLib.customid(modid, id), serializer);
+        RecipeSerializer<T> register = Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, RunicLib.customid(modid, id), serializer);
+        return () -> register;
     }
 
     @Override

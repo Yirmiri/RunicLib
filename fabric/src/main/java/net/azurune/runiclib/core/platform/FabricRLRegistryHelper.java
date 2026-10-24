@@ -145,6 +145,4 @@ public class FabricRLRegistryHelper implements RLRegistryHelper {
         RecipeSerializer<T> registered = Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, RunicLib.customid(modid, id), serializer);
         return () -> registered;
     }
-
-    // yirmiri how many times are you going to make Registry.register() suppliers, thank goodness you have a fabric-first dev tho amirite :innocent: - artyrian
 }

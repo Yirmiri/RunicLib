@@ -35,14 +35,15 @@ public class RunicLib {
 //backport attributes but rework to be better and maybe port some aurynium ones (use my aurynium lifesteal for example)
 
 //todo - @artyriain
-//mod loaded condition for jsons
-
-//todo - required for new fluid
+//mod loaded condition for jsons (for integration)
 //fluid registry
+
+//todo - extras required for new fluid
 //dripstone conversion
 //liquid conversion
 
 //todo - crazy extras
+//config screen
 //runic event system(?), hopefully unify many loader things
 //unify mod loader loot modifiers
 //unify mod loader biome modifiers
